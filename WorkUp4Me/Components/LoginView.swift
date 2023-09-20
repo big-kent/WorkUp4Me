@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
+    
     @Binding var currentShowingView: String
     @AppStorage("uid") var userID: String = ""
     
@@ -17,15 +18,13 @@ struct LoginView: View {
     @State private var password: String = ""
     
     // Track user login state
-    @State private var isUserLoggedIn: Bool = false
+    @State private var isUserLoggedIn: Bool = true
     
     private func isValidPassword(_ password: String) -> Bool {
         // minimum 6 characters long
         // 1 uppercase character
         // 1 special char
-        
         let passwordRegex = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])(?=.*[A-Z]).{6,}$")
-        
         return passwordRegex.evaluate(with: password)
     }
     
@@ -41,7 +40,6 @@ struct LoginView: View {
                             .bold()
                         
                         Spacer()
-                        
                     }
                     .padding()
                     .padding(.top)
@@ -55,23 +53,17 @@ struct LoginView: View {
                         Spacer()
                         
                         if(email.count != 0) {
-                            
                             Image(systemName: email.isValidEmail() ? "checkmark" : "xmark")
                                 .fontWeight(.bold)
                                 .foregroundColor(email.isValidEmail() ? .green : .red)
                         }
-                        
                     }
                     .padding()
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 2)
-                            .foregroundColor(.black)
-                        
-                    )
-                    
+                            .foregroundColor(.black))
                     .padding()
-                    
                     
                     HStack {
                         Image(systemName: "lock")
@@ -80,30 +72,22 @@ struct LoginView: View {
                         Spacer()
                         
                         if(password.count != 0) {
-                            
                             Image(systemName: isValidPassword(password) ? "checkmark" : "xmark")
                                 .fontWeight(.bold)
                                 .foregroundColor(isValidPassword(password) ? .green : .red)
                         }
-                        
                     }
                     .padding()
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 2)
-                            .foregroundColor(.black)
-                        
-                    )
+                            .foregroundColor(.black))
                     .padding()
-                    
-                    
                     Button(action: {
                         withAnimation {
                             self.currentShowingView = "signup"
                         }
-                        
-                        
-                    }) {
+                    }){
                         Text("Don't have an account?")
                             .foregroundColor(.black.opacity(0.7))
                     }
@@ -111,56 +95,41 @@ struct LoginView: View {
                     Spacer()
                     Spacer()
                     
-                    
-                    Button {
-                        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                            if let error = error {
-                                print(error)
-                                return
-                            }
-                            
-                            if let authResult = authResult {
-                                print(authResult.user.uid)
-                                withAnimation {
-                                    userID = authResult.user.uid
-                                    //isUserLoggedIn = true // Set to true upon successful login
-                                    currentShowingView = "course"
+                    ZStack{
+                        Button {
+                            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                                if let error = error {
+                                    print(error)
+                                    return
+                                }
+                                if let authResult = authResult {
+                                    print(authResult.user.uid)
+                                    withAnimation {
+                                        userID = authResult.user.uid
+                                    }
                                 }
                             }
-                            
-                            
+                        } label: {
+                            Text("Sign In")
+                                .foregroundColor(.white)
+                                .font(.title3)
+                                .bold()
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.black)
+                                )
+                                .padding(.horizontal)
                         }
-                    } label: {
-                        Text("Sign In")
-                            .foregroundColor(.white)
-                            .font(.title3)
-                            .bold()
-                        
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                        
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.black)
-                            )
-                            .padding(.horizontal)
                     }
                 }
-                NavigationLink(
-                    destination: CourseView(),
-                    isActive: $isUserLoggedIn)
-                {
-                    EmptyView()
-                }
-                .hidden()
-            }
-        }
-        .onAppear {
-            // Set isUserLoggedIn to true upon successful login
-            if !userID.isEmpty {
-                isUserLoggedIn = true
             }
         }
     }
 }
-
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView(currentShowingView: .constant("login"))
+    }
+}

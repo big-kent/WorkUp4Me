@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct SignUpView: View {
+    
     @State private var email: String = ""
     @State private var password: String = ""
     @AppStorage("uid") var userID: String = ""
@@ -19,9 +20,7 @@ struct SignUpView: View {
         // 1 uppercase character
         // 1 special char
         // 1 number
-        
         let passwordRegex = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])(?=.*[A-Z])(?=.*\\d).{6,}$")
-        
         return passwordRegex.evaluate(with: password)
     }
 
@@ -35,7 +34,6 @@ struct SignUpView: View {
                         .foregroundColor(.white)
                         .font(.largeTitle)
                         .bold()
-                    
                     Spacer()
                 }
                 .padding()
@@ -49,26 +47,20 @@ struct SignUpView: View {
                     
                     Spacer()
                     
-                    
                     if(email.count != 0) {
                         
                         Image(systemName: email.isValidEmail() ? "checkmark" : "xmark")
                             .fontWeight(.bold)
                             .foregroundColor(email.isValidEmail() ? .green : .red)
                     }
-                    
                 }
                 .foregroundColor(.white)
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(lineWidth: 2)
-                        .foregroundColor(.white)
-                    
-                )
-                
+                        .foregroundColor(.white))
                 .padding()
-                
                 
                 HStack {
                     Image(systemName: "lock")
@@ -82,18 +74,14 @@ struct SignUpView: View {
                             .fontWeight(.bold)
                             .foregroundColor(isValidPassword(password) ? .green : .red)
                     }
-                    
                 }
                 .foregroundColor(.white)
                 .padding()
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(lineWidth: 2)
-                        .foregroundColor(.white)
-                    
-                )
+                        .foregroundColor(.white))
                 .padding()
-                
                 
                 Button(action: {
                     withAnimation {
@@ -107,33 +95,24 @@ struct SignUpView: View {
                 Spacer()
                 Spacer()
                 
-                
                 Button {
-                    
-              
                     Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                        
                         if let error = error {
                             print(error)
                             return
                         }
-                        
                         if let authResult = authResult {
                             print(authResult.user.uid)
                             userID = authResult.user.uid
-                            
                         }
                     }
-                    
                 } label: {
                     Text("Create New Account")
                         .foregroundColor(.black)
                         .font(.title3)
                         .bold()
-                    
                         .frame(maxWidth: .infinity)
                         .padding()
-                    
                         .background(
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(Color.white)

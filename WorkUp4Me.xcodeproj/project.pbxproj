@@ -70,6 +70,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		93A5C4E42ABADE000095B33F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		93F7C81C2AB9B03E0073FDD2 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +96,7 @@
 		93F7C8272AB9B03E0073FDD2 /* WorkUp4Me */ = {
 			isa = PBXGroup;
 			children = (
+				93A5C4E42ABADE000095B33F /* Helper */,
 				93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */,
 				93F7C8502AB9B2D40073FDD2 /* Model */,
 				93F7C8412AB9B1A40073FDD2 /* Components */,
@@ -112,12 +120,12 @@
 		93F7C8362AB9B0750073FDD2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				93F7C8372AB9B0AD0073FDD2 /* CourseView.swift */,
+				93F7C83F2AB9B17F0073FDD2 /* WelcomeView.swift */,
 				93F7C8392AB9B0CC0073FDD2 /* HomeView.swift */,
 				93F7C83B2AB9B1050073FDD2 /* TrainingView.swift */,
-				93F7C83D2AB9B1600073FDD2 /* SettingView.swift */,
-				93F7C83F2AB9B17F0073FDD2 /* WelcomeView.swift */,
+				93F7C8372AB9B0AD0073FDD2 /* CourseView.swift */,
 				93F7C85E2AB9B6FD0073FDD2 /* SessionView.swift */,
+				93F7C83D2AB9B1600073FDD2 /* SettingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
