@@ -20,6 +20,9 @@ struct LoginView: View {
     // Track user login state
     @State private var isUserLoggedIn: Bool = true
     
+    //For animation background
+    @State private var startAnimation: Bool = false
+    
     private func isValidPassword(_ password: String) -> Bool {
         // minimum 6 characters long
         // 1 uppercase character
@@ -31,11 +34,17 @@ struct LoginView: View {
     var body: some View {
         NavigationView{
             ZStack {
-                Color.white.edgesIgnoringSafeArea(.all)
+                LinearGradient(colors: [.purple,.blue],startPoint: startAnimation ? .topLeading : .bottomLeading,endPoint: startAnimation ? .bottomTrailing: .topTrailing)
+                    .edgesIgnoringSafeArea(.all)
+                    .onAppear {
+                        withAnimation(.linear(duration: 5.0).repeatForever()) {
+                            startAnimation.toggle()
+                        }
+                    }
                 
                 VStack {
                     HStack {
-                        Text("Welcome Back!")
+                        Text("Welcome Heater!")
                             .font(.largeTitle)
                             .bold()
                         
@@ -59,10 +68,13 @@ struct LoginView: View {
                         }
                     }
                     .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.white))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 2)
-                            .foregroundColor(.black))
+                            .foregroundColor(.white))
                     .padding()
                     
                     HStack {
@@ -78,11 +90,15 @@ struct LoginView: View {
                         }
                     }
                     .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(.white))
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(lineWidth: 2)
-                            .foregroundColor(.black))
+                            .foregroundColor(.white))
                     .padding()
+                    
                     Button(action: {
                         withAnimation {
                             self.currentShowingView = "signup"

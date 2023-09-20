@@ -14,6 +14,7 @@ struct SignUpView: View {
     @State private var password: String = ""
     @AppStorage("uid") var userID: String = ""
     @Binding var currentShowingView: String
+    @State private var startAnimation: Bool = false // for animation background
     
     private func isValidPassword(_ password: String) -> Bool {
         // minimum 6 characters long
@@ -26,7 +27,12 @@ struct SignUpView: View {
 
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
+            LinearGradient(colors: [Color("Mint"),Color("Purple")],startPoint: startAnimation ? .topLeading : .bottomLeading,endPoint: startAnimation ? .bottomTrailing: .topTrailing)
+                .edgesIgnoringSafeArea(.all)
+                .onAppear {withAnimation(.linear(duration: 5.0).repeatForever()) {
+                                    startAnimation.toggle()
+                                }
+                            }
             
             VStack {
                 HStack {
@@ -56,10 +62,13 @@ struct SignUpView: View {
                 }
                 .foregroundColor(.white)
                 .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(.black))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(lineWidth: 2)
-                        .foregroundColor(.white))
+                        .foregroundColor(.black))
                 .padding()
                 
                 HStack {
@@ -121,6 +130,12 @@ struct SignUpView: View {
                 }
             }
         }
+    }
+}
+
+struct SignUpView_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUpView(currentShowingView: .constant("signup"))
     }
 }
 

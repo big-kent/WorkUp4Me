@@ -15,19 +15,21 @@ import FirebaseAuth
 
 struct AuthView: View {
     @State private var currentViewShowing: String = "login" // login or signup
+    @State private var startAnimation: Bool = false // for animation background
     
     var body: some View {
-        if(currentViewShowing == "login") {
-            LoginView(currentShowingView: $currentViewShowing)
-                .preferredColorScheme(.light)
-        } else {
-            SignUpView(currentShowingView: $currentViewShowing)
-                .preferredColorScheme(.dark)
-                .transition(.move(edge: .bottom))
+        ZStack{
+            if(currentViewShowing == "login") {
+                LoginView(currentShowingView: $currentViewShowing)
+                    .preferredColorScheme(.light)
+            } else {
+                SignUpView(currentShowingView: $currentViewShowing)
+                    .preferredColorScheme(.dark)
+                    .transition(.move(edge: .bottom))
+            }
         }
     }
 }
-
 struct AuthView_Previews: PreviewProvider {
     static var previews: some View {
         AuthView()
