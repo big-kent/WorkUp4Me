@@ -34,7 +34,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView{
             ZStack {
-                LinearGradient(colors: [.purple,.blue],startPoint: startAnimation ? .topLeading : .bottomLeading,endPoint: startAnimation ? .bottomTrailing: .topTrailing)
+                LinearGradient(colors: [Color("Mint"),Color("Purple")],startPoint: startAnimation ? .topLeading : .bottomLeading,endPoint: startAnimation ? .bottomTrailing: .topTrailing)
                     .edgesIgnoringSafeArea(.all)
                     .onAppear {
                         withAnimation(.linear(duration: 5.0).repeatForever()) {
