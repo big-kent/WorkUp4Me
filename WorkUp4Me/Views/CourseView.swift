@@ -8,19 +8,38 @@
 import SwiftUI
 
 struct CourseView: View {
+    @State var hasScrolled = false
+    @Namespace var namespace
+    @State var show = false
+    
     var body: some View {
         ZStack{
-            NavigationBar(title: "Featured")
-                .padding(5)
-            
             ScrollView{
                 FeatureItem()
+                
+                if !show {
+                    CourseItem(namespace: namespace, show: $show)
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                                show.toggle()
+                            }
+                        }
+                }
             }
-            .padding(.top, 70)
+        .coordinateSpace(name: "scroll")
+        .safeAreaInset(edge: .top, content: {
+            Color.clear.frame(height: 70)
+        })
+        .overlay(
+            NavigationBar(title: "Featured")
+        )
+        
+        if show {
+            CourseDetailView(namespace: namespace, show: $show)
+                    }
+                }
         }
     }
-}
-
 struct CourseView_Previews: PreviewProvider {
     static var previews: some View {
         CourseView()
