@@ -18,15 +18,13 @@ struct AuthView: View {
     @State private var startAnimation: Bool = false // for animation background
     
     var body: some View {
-        ZStack{
-            if(currentViewShowing == "login") {
-                LoginView(currentShowingView: $currentViewShowing)
-                    .preferredColorScheme(.light)
-            } else {
-                SignUpView(currentShowingView: $currentViewShowing)
-                    .preferredColorScheme(.dark)
-                    .transition(.move(edge: .bottom))
-            }
+        if(currentViewShowing == "login") {
+            LoginView(currentShowingView: $currentViewShowing)
+                .preferredColorScheme(.light)
+        } else {
+            SignUpView(currentShowingView: $currentViewShowing)
+                .preferredColorScheme(.dark)
+                .transition(.move(edge: .bottom))
         }
     }
 }

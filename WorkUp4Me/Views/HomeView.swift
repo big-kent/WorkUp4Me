@@ -10,127 +10,89 @@
 import SwiftUI
 
 struct HomeView: View {
-@ViewBuilder
+    @State private var selectedTab = 0
+    @State private var showNavigationBar = false
+
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Your content here
-                Text("Hello, World!")
-                    .padding()
-
-                // Bottom navigation bar
-                VStack {
-                    Spacer()
-                    BottomNavigationBar()
-                        .background(BlurView())
+        ZStack {
+            VStack(spacing: 0) {
+                TabView(selection: $selectedTab) {
+                    TrainingView()
+                        .tabItem {
+                            Label("Training", systemImage: "person.fill")
+                        }
+                        .tag(0)
+                    
+                    CourseView()
+                        .tabItem {
+                            Label("Course", systemImage: "book.fill")
+                        }
+                        .tag(1)
+                    
+                    SessionView()
+                        .tabItem {
+                            Label("Session", systemImage: "dollarsign.circle.fill")
+                        }
+                        .tag(2)
+                    
+                    SettingView()
+                        .tabItem {
+                            Label("Setting", systemImage: "gearshape")
+                        }
+                        .tag(3)
                 }
+                .accentColor(selectedTab == 2 ? .blue : .white)
+                
+                Spacer()
             }
-            .navigationBarHidden(true)
+            .background(selectedTab == 2 ? Color.blue : Color.clear)
+            .cornerRadius(10)
+            
+            if showNavigationBar {
+                RoundedRectangle(cornerRadius: 0)
+                    .fill(Color.gray) // Set the background color to gray
+                    .frame(height: 44) // Adjust the height as needed
+                    .overlay(
+                        HStack {
+                            Button(action: {
+                                selectedTab = 0
+                            }) {
+                                Image(systemName: "person.fill")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(selectedTab == 0 ? .blue : .white)
+                            }
+                            Spacer()
+                            Button(action: {
+                                selectedTab = 1
+                            }) {
+                                Image(systemName: "book.fill")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(selectedTab == 1 ? .blue : .white)
+                            }
+                            Spacer()
+                            Button(action: {
+                                selectedTab = 2
+                            }) {
+                                Image(systemName: "dollarsign.circle.fill")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(selectedTab == 2 ? .blue : .white)
+                            }
+                            Spacer()
+                            Button(action: {
+                                selectedTab = 3
+                            }) {
+                                Image(systemName: "gearshape")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(selectedTab == 3 ? .blue : .white)
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                    )
+                    .onAppear {
+                        showNavigationBar = true
+                    }
+            }
         }
-    }
-}
-
-struct BottomNavigationBar: View {
-    var body: some View {
-        HStack {
-            Spacer()
-
-            // Person
-            VStack {
-                Button(action: {
-                    // Handle the button action here if needed
-                }) {
-                    NavigationLink(destination: TrainingView()) {
-                        VStack{
-                            Image(systemName: "person.fill")
-                                .font(.system(size: 24))
-                                .foregroundColor(.white)
-                            Text("Person")
-                                .font(.caption)
-                                .foregroundColor(.white)
-                        }
-                    }
-                }
-            }
-
-            Spacer()
-
-            // Course
-            VStack {
-                Button(action: {
-                    // Handle the button action here if needed
-                }) {
-                    NavigationLink(destination: CourseView()) {
-                        VStack{
-                            Image(systemName: "book.fill")
-                                .font(.system(size: 20))
-                                .foregroundColor(.white)
-                            Text("Course")
-                                .font(.caption)
-                                .foregroundColor(.white)
-                        }
-                    }
-                }
-            }
-
-            Spacer()
-
-            // Session (Paying Content)
-            VStack {
-                Button(action: {
-                    // Handle the button action here if needed
-                }) {
-                    NavigationLink(destination: SessionView()) {
-                        VStack{
-                            Image(systemName: "dollarsign.circle.fill")
-                                .font(.system(size: 24))
-                                .foregroundColor(.white)
-                            Text("Session")
-                                .font(.caption)
-                                .foregroundColor(.white)
-                        }
-                    }
-                }
-            }
-
-            Spacer()
-
-            // Setting
-            VStack {
-                Button(action: {
-                    // Handle the button action here if needed
-                }) {
-                    NavigationLink(destination: SettingView()) {
-                        VStack{
-                            Image(systemName: "gearshape")
-                                .font(.system(size: 24))
-                                .foregroundColor(.white)
-                            Text("Setting")
-                                .font(.caption)
-                                .foregroundColor(.white)
-                        }
-                    }
-                }
-            }
-
-            Spacer()
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
-        .background(Color.gray.opacity(0.5))
-        .cornerRadius(10)
-    }
-}
-
-struct BlurView: UIViewRepresentable {
-    func makeUIView(context: Context) -> UIVisualEffectView {
-        let blurEffect = UIBlurEffect(style: .systemMaterial)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        return blurView
-    }
-
-    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
-
     }
 }
 

@@ -37,7 +37,7 @@ struct SignUpView: View {
             VStack {
                 HStack {
                     Text("Create an Account!")
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .font(.largeTitle)
                         .bold()
                     Spacer()
@@ -86,10 +86,13 @@ struct SignUpView: View {
                 }
                 .foregroundColor(.white)
                 .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(.black))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(lineWidth: 2)
-                        .foregroundColor(.white))
+                        .foregroundColor(.black))
                 .padding()
                 
                 Button(action: {
@@ -98,7 +101,7 @@ struct SignUpView: View {
                     }
                 }) {
                     Text("Already have an account?")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
                 }
                 
                 Spacer()
@@ -117,14 +120,14 @@ struct SignUpView: View {
                     }
                 } label: {
                     Text("Create New Account")
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         .font(.title3)
                         .bold()
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.white)
+                                .fill(Color.black)
                         )
                         .padding(.horizontal)
                 }
