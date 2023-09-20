@@ -42,6 +42,7 @@ struct HomeView: View {
                     }
                 
                 MapView()
+                
                     .tabItem {
                         Image(systemName: "map.fill")
                         Text("Map")
@@ -60,5 +61,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(LocationsViewModel()) // Provide LocationsViewModel as an environment object
+
     }
 }

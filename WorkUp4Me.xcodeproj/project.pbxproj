@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		93A5C4E62ABAFDE00095B33F /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A5C4E52ABAFDE00095B33F /* SettingView.swift */; };
+		298F96B22ABB55C00051BBC8 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96B12ABB55C00051BBC8 /* SettingView.swift */; };
+		298F96BE2ABB5DA70051BBC8 /* LocationsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */; };
+		298F96C02ABB6B760051BBC8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96BF2ABB6B760051BBC8 /* Location.swift */; };
+		298F96C22ABB73E20051BBC8 /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */; };
+		298F96C42ABB805E0051BBC8 /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C32ABB805E0051BBC8 /* LocationsListView.swift */; };
+		298F96C62ABB8AE80051BBC8 /* LocationPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */; };
 		93F7C8292AB9B03E0073FDD2 /* WorkUp4MeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */; };
 		93F7C82B2AB9B03E0073FDD2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F7C82A2AB9B03E0073FDD2 /* ContentView.swift */; };
 		93F7C82D2AB9B03F0073FDD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F7C82C2AB9B03F0073FDD2 /* Assets.xcassets */; };
@@ -33,7 +38,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		93A5C4E52ABAFDE00095B33F /* SettingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingView.swift; path = ../../../../../Downloads/SettingView.swift; sourceTree = "<group>"; };
+		298F96B12ABB55C00051BBC8 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsDataService.swift; sourceTree = "<group>"; };
+		298F96BF2ABB6B760051BBC8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
+		298F96C32ABB805E0051BBC8 /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
+		298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreview.swift; sourceTree = "<group>"; };
 		93F7C8252AB9B03E0073FDD2 /* WorkUp4Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkUp4Me.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkUp4MeApp.swift; sourceTree = "<group>"; };
 		93F7C82A2AB9B03E0073FDD2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +80,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		298F96BC2ABB5D810051BBC8 /* SetUpMap */ = {
+			isa = PBXGroup;
+			children = (
+				298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */,
+				298F96BF2ABB6B760051BBC8 /* Location.swift */,
+				298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */,
+				298F96C32ABB805E0051BBC8 /* LocationsListView.swift */,
+				298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */,
+			);
+			path = SetUpMap;
+			sourceTree = "<group>";
+		};
 		93A5C4E42ABADE000095B33F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +118,7 @@
 		93F7C8272AB9B03E0073FDD2 /* WorkUp4Me */ = {
 			isa = PBXGroup;
 			children = (
+				298F96BC2ABB5D810051BBC8 /* SetUpMap */,
 				93A5C4E42ABADE000095B33F /* Helper */,
 				93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */,
 				93F7C8502AB9B2D40073FDD2 /* Model */,
@@ -125,7 +148,7 @@
 				93F7C83B2AB9B1050073FDD2 /* TrainingView.swift */,
 				93F7C8372AB9B0AD0073FDD2 /* CourseView.swift */,
 				93F7C85E2AB9B6FD0073FDD2 /* MapView.swift */,
-				93A5C4E52ABAFDE00095B33F /* SettingView.swift */,
+				298F96B12ABB55C00051BBC8 /* SettingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,19 +256,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				93F7C82B2AB9B03E0073FDD2 /* ContentView.swift in Sources */,
+				298F96C62ABB8AE80051BBC8 /* LocationPreview.swift in Sources */,
+				298F96C42ABB805E0051BBC8 /* LocationsListView.swift in Sources */,
 				93F7C8472AB9B2140073FDD2 /* CourseItem.swift in Sources */,
+				298F96C02ABB6B760051BBC8 /* Location.swift in Sources */,
 				93F7C8562AB9B5690073FDD2 /* Row.swift in Sources */,
+				298F96B22ABB55C00051BBC8 /* SettingView.swift in Sources */,
 				93F7C83A2AB9B0CC0073FDD2 /* HomeView.swift in Sources */,
 				93F7C83C2AB9B1050073FDD2 /* TrainingView.swift in Sources */,
 				93F7C8542AB9B5690073FDD2 /* Exercise.swift in Sources */,
 				93F7C85F2AB9B6FD0073FDD2 /* MapView.swift in Sources */,
 				93F7C8452AB9B1E60073FDD2 /* CourseDetailView.swift in Sources */,
+				298F96C22ABB73E20051BBC8 /* LocationsViewModel.swift in Sources */,
 				93F7C8292AB9B03E0073FDD2 /* WorkUp4MeApp.swift in Sources */,
-				93A5C4E62ABAFDE00095B33F /* SettingView.swift in Sources */,
 				93F7C8382AB9B0AD0073FDD2 /* CourseView.swift in Sources */,
 				93F7C8432AB9B1B90073FDD2 /* AuthView.swift in Sources */,
 				93F7C8402AB9B17F0073FDD2 /* WelcomeView.swift in Sources */,
 				93F7C84F2AB9B2BF0073FDD2 /* SignUpView.swift in Sources */,
+				298F96BE2ABB5DA70051BBC8 /* LocationsDataService.swift in Sources */,
 				93F7C84D2AB9B2A00073FDD2 /* LoginView.swift in Sources */,
 				93F7C8492AB9B23D0073FDD2 /* FeatureItem.swift in Sources */,
 				93F7C8552AB9B5690073FDD2 /* String.swift in Sources */,
