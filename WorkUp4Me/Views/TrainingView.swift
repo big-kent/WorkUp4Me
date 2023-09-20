@@ -135,11 +135,14 @@ struct TrainingView: View {
                     }
                 }
             }
+        
+            .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
+            
             .safeAreaInset(edge: .top, content: {
                 Color.clear.frame(height: 70)
             })
             .overlay(
-                NavigationBar(title: "Training")
+                NavigationBar(title: "Featured")
             )
         }
         .onAppear {
