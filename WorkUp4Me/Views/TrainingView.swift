@@ -12,63 +12,191 @@ struct TrainingView: View {
     
     var allExercises: [Exercise] = Exercise.top
     @State private var searchText: String = ""
-    @State private var filteredExercises: [Exercise] = Exercise.top
+    @State private var selectedCategory: String? = nil // Default to nil (no category selected)
+    @State private var isSheetPresented = false
+    @State private var selectedExercise: Exercise? = nil
     
-    var body: some View {
-            NavigationView {
-                VStack {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                            .padding(.leading, 10) // Add padding to the search icon
-                            
-                        TextField("Search for exercise...", text: $searchText)
-                            .textFieldStyle(PlainTextFieldStyle()) // Use plain style
-                            .background(Color.white) // Add a background color
-                            .padding(.vertical, 10)
-                            .onChange(of: searchText) { newValue in
-                                filterExercises()
-                            }
-                            .foregroundColor(.primary)
-                            .accentColor(.purple)
-                        
-                        Button(action: {
-                            searchText = ""
-                            filterExercises()
-                        }) {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundColor(.gray)
-                                .opacity(searchText.isEmpty ? 0 : 1)
-                                .frame(width: 20, height: 20) // Increase button size
-                        }
-                        .padding(.trailing, 10) // Add padding to the clear button
-                    }
-                    .padding(.horizontal, 16)
-                    
-                    List(filteredExercises, id: \.id) { ex in
-                        CardView(exercise: ex)
-                            .listRowBackground(Color.clear)
-                    }
-                }
-                .navigationBarTitle("Exercise List")
-                .background(Color.secondaryBackground)
-                .edgesIgnoringSafeArea(.bottom)
-            }
-            .onAppear {
-                UITableView.appearance().separatorStyle = .none
+    // Create a list of unique categories from allExercises
+    var categories: [String] {
+        let allCategories = allExercises.map { $0.category }
+        return Array(Set(allCategories))
+    }
+    
+    // Computed property to filter exercises based on search text and category
+    var filteredExercises: [Exercise] {
+        var filtered = allExercises
+        
+        if !searchText.isEmpty {
+            filtered = filtered.filter { ex in
+                ex.name.localizedCaseInsensitiveContains(searchText)
             }
         }
         
-        private func filterExercises() {
-            if searchText.isEmpty {
-                filteredExercises = allExercises
-            } else {
-                filteredExercises = allExercises.filter { ex in
-                    ex.name.localizedCaseInsensitiveContains(searchText)
-                }
+        if let selectedCategory = selectedCategory, !selectedCategory.isEmpty {
+            filtered = filtered.filter { ex in
+                ex.category == selectedCategory
             }
         }
+        
+        return filtered
     }
+    
+    // Function to filter exercises
+    private func filterExercises() {
+        // Implement the filterExercises logic here
+        // You can copy the code from your previous filterExercises function
+    }
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                        .padding(.leading, 10) // Add padding to the search icon
+                        
+                    TextField("Search for exercise...", text: $searchText)
+                        .textFieldStyle(PlainTextFieldStyle()) // Use plain style
+                        .background(Color.white) // Add a background color
+                        .padding(.vertical, 10)
+                        .onChange(of: searchText) { newValue in
+                            filterExercises()
+                        }
+                        .foregroundColor(.primary)
+                        .accentColor(.purple)
+                    
+                    Button(action: {
+                        searchText = ""
+                        filterExercises()
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.gray)
+                            .opacity(searchText.isEmpty ? 0 : 1)
+                            .frame(width: 20, height: 20) // Increase button size
+                    }
+                    .padding(.trailing, 10) // Add padding to the clear button
+                }
+                .padding(.horizontal, 16)
+                
+                // Add a Picker for category selection
+                Picker(selection: $selectedCategory, label: Text("Select Category")) {
+                    Text("All").tag(nil as String?) // Include an "All" option
+                    ForEach(categories, id: \.self) { category in
+                        Text(category).tag(category as String?)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle()) // Dropdown style
+                .padding(.horizontal, 16)
+                .foregroundColor(.primary) // Text color
+                .accentColor(.purple) // Accent color
+                
+                // Conditional rendering of CardViews based on the filter
+                if filteredExercises.isEmpty {
+                    Text("No exercises found")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                        .padding(.top, 20)
+                } else {
+                    List(filteredExercises, id: \.id) { ex in
+                        CardView(exercise: ex)
+                            .listRowBackground(Color.clear) // Transparent list row background
+                            .onTapGesture {
+                                selectedExercise = ex
+                                isSheetPresented.toggle()
+                            }
+                    }
+                }
+                
+                // Button to present a sheet
+                Button(action: {
+                    if let firstFilteredExercise = filteredExercises.first {
+                        selectedExercise = firstFilteredExercise // Select the first filtered exercise by default
+                        isSheetPresented.toggle()
+                    }
+                }) {
+                    Text("Show Filter")
+                        .font(.headline)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.clear) // Clear background
+                        .foregroundColor(.purple) // Text color
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 20)
+                .sheet(isPresented: $isSheetPresented) {
+                    if let exercise = selectedExercise {
+                        ExerciseDetailsView(exercise: exercise)
+                    }
+                }
+            }
+            .navigationBarTitle("Exercise List")
+            .background(Color.secondaryBackground) // Background color
+            .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
+        }
+        .onAppear {
+            UITableView.appearance().separatorStyle = .none // Remove list separators
+        }
+    }
+}
+
+struct ExerciseDetailsView: View {
+    var exercise: Exercise
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .center, spacing: 16) {
+                Image(exercise.imageLink)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .cornerRadius(20)
+                    .shadow(radius: 5)
+                
+                Text(exercise.name)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                
+                Text(exercise.description)
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                
+                Divider()
+                
+                HStack {
+                    Text("Category:")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                    
+                    Text(exercise.category)
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+                
+                HStack {
+                    Text("Calories:")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                    
+                    Text("\(exercise.calories)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+            }
+            .padding()
+        }
+        .navigationBarTitle(exercise.name, displayMode: .inline)
+    }
+}
+
+
 
 struct CardView: View {
     var exercise: Exercise
