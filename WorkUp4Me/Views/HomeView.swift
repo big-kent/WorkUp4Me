@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct HomeView: View {
-
+@ViewBuilder
     var body: some View {
         NavigationView {
             ZStack {
