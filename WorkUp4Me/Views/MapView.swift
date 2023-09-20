@@ -12,15 +12,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @State private var currentShowingView: String = ""
+struct MapView: View {
     var body: some View {
-        WelcomeView(currentShowingView: $currentShowingView)
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MapView()
     }
 }

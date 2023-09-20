@@ -1,9 +1,14 @@
-//
-//  PersonaView.swift
-//  WorkUp4IAM
-//
-//  Created by Khang Lu Minh on 12/09/2023.
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author: Lu Minh khang, Trinh Xuan Khanh, Nguyen Viet Quan, Vo Phuc Duy Nhat, Duong Khoi
+  ID: s3863969,
+  Created  date: 10/09/2023
+  Last modified: 23/09/2023
+  Acknowledgement: None
+*/
 
 import SwiftUI
 import Combine
@@ -130,9 +135,12 @@ struct TrainingView: View {
                     }
                 }
             }
-            .navigationBarTitle("Exercise List")
-            .background(Color.secondaryBackground) // Background color
-            .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
+            .safeAreaInset(edge: .top, content: {
+                Color.clear.frame(height: 70)
+            })
+            .overlay(
+                NavigationBar(title: "Training")
+            )
         }
         .onAppear {
             UITableView.appearance().separatorStyle = .none // Remove list separators

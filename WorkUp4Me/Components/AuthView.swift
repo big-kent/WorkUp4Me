@@ -1,14 +1,15 @@
-//
-//  LoginView.swift
-//  WorkUp4IAM
-//
-//  Created by Khang Lu Minh on 12/09/2023.
-//
-// Source:  https://github.com/DerekHsiehDev/SwiftUI-FirebaseAuth
-// Youtube: https://www.youtube.com/watch?v=OTg_yZp3T34
-//          https://www.youtube.com/watch?v=6b2WAePdiqA
-//          https://www.youtube.com/watch?v=GiCTgsH0dtk
-//
+/*
+  RMIT University Vietnam
+  Course: COSC2659 iOS Development
+  Semester: 2023B
+  Assessment: Assignment 3
+  Author: Lu Minh khang, Trinh Xuan Khanh, Nguyen Viet Quan, Vo Phuc Duy Nhat, Duong Khoi
+  ID: s3863969,
+  Created  date: 10/09/2023
+  Last modified: 23/09/2023
+  Acknowledgement: None
+*/
+
 
 import SwiftUI
 import FirebaseAuth
