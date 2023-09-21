@@ -2,7 +2,7 @@
 //  LocationDetailView.swift
 //  WorkUp4Me
 //
-//  Created by Võ Phúc Duy Nhật on 21/09/2023.
+//  Created by Khang Lu Minh on 21/09/2023.
 //
 
 import SwiftUI
