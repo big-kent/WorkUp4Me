@@ -53,8 +53,8 @@ struct TrainingView: View {
     }
     
     var body: some View {
-        NavigationView {
-            VStack {
+        ZStack {
+            VStack(spacing: 0) {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
@@ -119,7 +119,7 @@ struct TrainingView: View {
                         isSheetPresented.toggle()
                     }
                 }) {
-                    Text("Show Filter")
+                    Image(systemName: "line.horizontal.3.decrease.circle")
                         .font(.headline)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -137,12 +137,11 @@ struct TrainingView: View {
             }
         
             .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
-            
             .safeAreaInset(edge: .top, content: {
                 Color.clear.frame(height: 70)
             })
             .overlay(
-                NavigationBar(title: "Featured")
+                NavigationBar(title: "Training")
             )
         }
         .onAppear {

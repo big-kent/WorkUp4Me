@@ -15,10 +15,10 @@ import SwiftUI
 struct HomeView: View {
     
     @State private var startAnimation: Bool = false
+    @EnvironmentObject private var vm: LocationsViewModel
     
     var body: some View {
         ZStack{
-            
             LinearGradient(colors: [Color("Mint"),Color("Purple")],startPoint: startAnimation ? .topLeading : .bottomLeading,endPoint: startAnimation ? .bottomTrailing: .topTrailing)
                 .edgesIgnoringSafeArea(.all)
                 .onAppear {
@@ -26,34 +26,35 @@ struct HomeView: View {
                         startAnimation.toggle()
                     }
                 }
-            
-            TabView {
-                TrainingView()
-                    .tabItem {
-                        Image(systemName: "bolt.fill")
-                            .padding(.bottom, 20)
-                        Text("Training")
-                    }
-                
-                CourseView()
-                    .tabItem {
-                        Image(systemName: "book.fill")
-                        Text("Course")
-                    }
-                
-                MapView()
-                
-                    .tabItem {
-                        Image(systemName: "map.fill")
-                        Text("Map")
-                            .padding(.bottom, 2)
-                    }
-                
-                SettingView()
-                    .tabItem {
-                        Image(systemName: "person")
-                        Text("Settings")
-                    }
+            VStack{
+                TabView {
+                    TrainingView()
+                        .tabItem {
+                            Image(systemName: "bolt.fill")
+                                .padding(.bottom, 20)
+                            Text("Training")
+                        }
+                    
+                    CourseView()
+                        .tabItem {
+                            Image(systemName: "book.fill")
+                            Text("Course")
+                        }
+                    
+                    MapView()
+                        .environmentObject(LocationsViewModel())
+                        .tabItem {
+                            Image(systemName: "map.fill")
+                            Text("Map")
+                                .padding(.bottom, 2)
+                        }
+                    
+                    SettingView()
+                        .tabItem {
+                            Image(systemName: "person")
+                            Text("Settings")
+                        }
+                }
             }
         }
     }

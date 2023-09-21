@@ -19,7 +19,7 @@ struct WelcomeView: View {
     @AppStorage("uid") var userID: String = ""
     @State private var isUserLoggedIn: Bool = true // Use this to manage the NavigationLink
     @State private var startAnimation: Bool = false
-    
+   
     var body: some View {
         ZStack{
             

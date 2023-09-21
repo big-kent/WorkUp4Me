@@ -118,9 +118,9 @@
 		93F7C8272AB9B03E0073FDD2 /* WorkUp4Me */ = {
 			isa = PBXGroup;
 			children = (
+				93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */,
 				298F96BC2ABB5D810051BBC8 /* SetUpMap */,
 				93A5C4E42ABADE000095B33F /* Helper */,
-				93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */,
 				93F7C8502AB9B2D40073FDD2 /* Model */,
 				93F7C8412AB9B1A40073FDD2 /* Components */,
 				93F7C8362AB9B0750073FDD2 /* Views */,
