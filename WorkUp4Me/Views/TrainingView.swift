@@ -59,7 +59,7 @@ struct TrainingView: View {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.gray)
                         .padding(.leading, 10) // Add padding to the search icon
-                    
+                        
                     TextField("Search for exercise...", text: $searchText)
                         .textFieldStyle(PlainTextFieldStyle()) // Use plain style
                         .background(Color.white) // Add a background color
@@ -83,37 +83,17 @@ struct TrainingView: View {
                 }
                 .padding(.horizontal, 16)
                 
-                // Use an HStack to align the Picker and the "Show Filter" button icon in the same line
-                HStack {
-                    Picker(selection: $selectedCategory, label: Text("Select Category")) {
-                        Text("All").tag(nil as String?) // Include an "All" option
-                        ForEach(categories, id: \.self) { category in
-                            Text(category).tag(category as String?)
-                        }
+                // Add a Picker for category selection
+                Picker(selection: $selectedCategory, label: Text("Select Category")) {
+                    Text("All").tag(nil as String?) // Include an "All" option
+                    ForEach(categories, id: \.self) { category in
+                        Text(category).tag(category as String?)
                     }
-                    .pickerStyle(MenuPickerStyle()) // Dropdown style
-                    .foregroundColor(.primary) // Text color
-                    .accentColor(.purple) // Accent color
-                    .frame(maxWidth: .infinity) // Make the Picker expand
-                    
-                    // "Show Filter" button icon
-                    Button(action: {
-                        if let firstFilteredExercise = filteredExercises.first {
-                            selectedExercise = firstFilteredExercise // Select the first filtered exercise by default
-                            isSheetPresented.toggle()
-                        }
-                    }) {
-                        Image(systemName: "line.horizontal.3.decrease.circle")
-                            .font(.headline)
-                            .padding()
-                            .background(Color.clear) // Clear background
-                            .foregroundColor(.purple) // Icon color
-                            .cornerRadius(10)
-                    }
-                    .padding(.horizontal, 16) // Add horizontal padding
                 }
+                .pickerStyle(MenuPickerStyle()) // Dropdown style
                 .padding(.horizontal, 16)
-                .padding(.bottom, 8) // Reduce the bottom padding
+                .foregroundColor(.primary) // Text color
+                .accentColor(.purple) // Accent color
                 
                 // Conditional rendering of CardViews based on the filter
                 if filteredExercises.isEmpty {
@@ -131,9 +111,8 @@ struct TrainingView: View {
                             }
                     }
                 }
-                
-                // Move the button outside of the HStack
             }
+        
             .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
             .safeAreaInset(edge: .top, content: {
                 Color.clear.frame(height: 70)
@@ -141,29 +120,6 @@ struct TrainingView: View {
             .overlay(
                 NavigationBar(title: "Training")
             )
-            
-            // "Show Filter" button to present a sheet
-            Button(action: {
-                if let firstFilteredExercise = filteredExercises.first {
-                    selectedExercise = firstFilteredExercise // Select the first filtered exercise by default
-                    isSheetPresented.toggle()
-                }
-            }) {
-                Image(systemName: "line.horizontal.3.decrease.circle")
-                    .font(.headline)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.clear) // Clear background
-                    .foregroundColor(.purple) // Icon color
-                    .cornerRadius(10)
-                    .padding(.horizontal, 16) // Add horizontal padding
-                    .padding(.bottom, 20) // Add bottom padding
-            }
-            .sheet(isPresented: $isSheetPresented) {
-                if let exercise = selectedExercise {
-                    ExerciseDetailsView(exercise: exercise)
-                }
-            }
         }
         .onAppear {
             UITableView.appearance().separatorStyle = .none // Remove list separators

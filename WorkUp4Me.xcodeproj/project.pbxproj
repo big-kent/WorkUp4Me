@@ -84,18 +84,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		298F96BC2ABB5D810051BBC8 /* SetUpMap */ = {
+		298F96BC2ABB5D810051BBC8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				93F7C8522AB9B5690073FDD2 /* String.swift */,
+				93F7C8512AB9B5690073FDD2 /* Exercise.swift */,
 				298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */,
 				298F96BF2ABB6B760051BBC8 /* Location.swift */,
-				298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */,
-				298F96C32ABB805E0051BBC8 /* LocationsListView.swift */,
-				298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */,
-				939FF5C92ABC586C00505ADA /* LocationDetailView.swift */,
-				939FF5CB2ABC58A000505ADA /* LocationMapAnnotionView.swift */,
 			);
-			path = SetUpMap;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		93A5C4E42ABADE000095B33F /* Helper */ = {
@@ -125,10 +122,10 @@
 			isa = PBXGroup;
 			children = (
 				93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */,
-				298F96BC2ABB5D810051BBC8 /* SetUpMap */,
 				93A5C4E42ABADE000095B33F /* Helper */,
-				93F7C8502AB9B2D40073FDD2 /* Model */,
-				93F7C8412AB9B1A40073FDD2 /* Components */,
+				298F96BC2ABB5D810051BBC8 /* Models */,
+				93F7C8502AB9B2D40073FDD2 /* ViewModel1 */,
+				93F7C8412AB9B1A40073FDD2 /* ViewModel2 */,
 				93F7C8362AB9B0750073FDD2 /* Views */,
 				93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */,
 				93F7C82A2AB9B03E0073FDD2 /* ContentView.swift */,
@@ -159,7 +156,7 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		93F7C8412AB9B1A40073FDD2 /* Components */ = {
+		93F7C8412AB9B1A40073FDD2 /* ViewModel2 */ = {
 			isa = PBXGroup;
 			children = (
 				93F7C8422AB9B1B90073FDD2 /* AuthView.swift */,
@@ -170,17 +167,20 @@
 				93F7C84C2AB9B2A00073FDD2 /* LoginView.swift */,
 				93F7C84E2AB9B2BF0073FDD2 /* SignUpView.swift */,
 			);
-			path = Components;
+			path = ViewModel2;
 			sourceTree = "<group>";
 		};
-		93F7C8502AB9B2D40073FDD2 /* Model */ = {
+		93F7C8502AB9B2D40073FDD2 /* ViewModel1 */ = {
 			isa = PBXGroup;
 			children = (
-				93F7C8512AB9B5690073FDD2 /* Exercise.swift */,
+				939FF5CB2ABC58A000505ADA /* LocationMapAnnotionView.swift */,
+				939FF5C92ABC586C00505ADA /* LocationDetailView.swift */,
+				298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */,
+				298F96C32ABB805E0051BBC8 /* LocationsListView.swift */,
+				298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */,
 				93F7C8532AB9B5690073FDD2 /* Row.swift */,
-				93F7C8522AB9B5690073FDD2 /* String.swift */,
 			);
-			path = Model;
+			path = ViewModel1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -39,19 +39,3 @@ struct WelcomeView_Previews: PreviewProvider {
         WelcomeView(currentShowingView: $currentShowingView)
     }
 }
-
-//This is the sign out button will use again
-//                Button(action: {
-//                    let firebaseAuth = Auth.auth()
-//                    do {
-//                        try firebaseAuth.signOut()
-//                        withAnimation {
-//                            userID = ""
-//                            isUserLoggedIn = false // Set isUserLoggedIn to false when signing out
-//                        }
-//                    } catch let signOutError as NSError {
-//                        print("Error signing out: %@", signOutError)
-//                    }
-//                }) {
-//                    Text("Sign Out")
-//                }
