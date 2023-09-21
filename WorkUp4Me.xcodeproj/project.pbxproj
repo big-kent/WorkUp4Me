@@ -13,6 +13,8 @@
 		298F96C22ABB73E20051BBC8 /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */; };
 		298F96C42ABB805E0051BBC8 /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C32ABB805E0051BBC8 /* LocationsListView.swift */; };
 		298F96C62ABB8AE80051BBC8 /* LocationPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */; };
+		298F96CC2ABC18D40051BBC8 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96CB2ABC18D40051BBC8 /* LocationDetailView.swift */; };
+		298F96CE2ABC18F40051BBC8 /* LocationMapAnnotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96CD2ABC18F40051BBC8 /* LocationMapAnnotionView.swift */; };
 		93F7C8292AB9B03E0073FDD2 /* WorkUp4MeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */; };
 		93F7C82B2AB9B03E0073FDD2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F7C82A2AB9B03E0073FDD2 /* ContentView.swift */; };
 		93F7C82D2AB9B03F0073FDD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93F7C82C2AB9B03F0073FDD2 /* Assets.xcassets */; };
@@ -44,6 +46,8 @@
 		298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
 		298F96C32ABB805E0051BBC8 /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
 		298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreview.swift; sourceTree = "<group>"; };
+		298F96CB2ABC18D40051BBC8 /* LocationDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationDetailView.swift; path = ../../../../SetUpMap/LocationDetailView.swift; sourceTree = "<group>"; };
+		298F96CD2ABC18F40051BBC8 /* LocationMapAnnotionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationMapAnnotionView.swift; path = ../../../../SetUpMap/LocationMapAnnotionView.swift; sourceTree = "<group>"; };
 		93F7C8252AB9B03E0073FDD2 /* WorkUp4Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkUp4Me.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkUp4MeApp.swift; sourceTree = "<group>"; };
 		93F7C82A2AB9B03E0073FDD2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 		298F96BC2ABB5D810051BBC8 /* SetUpMap */ = {
 			isa = PBXGroup;
 			children = (
+				298F96CD2ABC18F40051BBC8 /* LocationMapAnnotionView.swift */,
+				298F96CB2ABC18D40051BBC8 /* LocationDetailView.swift */,
 				298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */,
 				298F96BF2ABB6B760051BBC8 /* Location.swift */,
 				298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */,
@@ -257,6 +263,7 @@
 			files = (
 				93F7C82B2AB9B03E0073FDD2 /* ContentView.swift in Sources */,
 				298F96C62ABB8AE80051BBC8 /* LocationPreview.swift in Sources */,
+				298F96CC2ABC18D40051BBC8 /* LocationDetailView.swift in Sources */,
 				298F96C42ABB805E0051BBC8 /* LocationsListView.swift in Sources */,
 				93F7C8472AB9B2140073FDD2 /* CourseItem.swift in Sources */,
 				298F96C02ABB6B760051BBC8 /* Location.swift in Sources */,
@@ -271,6 +278,7 @@
 				93F7C8292AB9B03E0073FDD2 /* WorkUp4MeApp.swift in Sources */,
 				93F7C8382AB9B0AD0073FDD2 /* CourseView.swift in Sources */,
 				93F7C8432AB9B1B90073FDD2 /* AuthView.swift in Sources */,
+				298F96CE2ABC18F40051BBC8 /* LocationMapAnnotionView.swift in Sources */,
 				93F7C8402AB9B17F0073FDD2 /* WelcomeView.swift in Sources */,
 				93F7C84F2AB9B2BF0073FDD2 /* SignUpView.swift in Sources */,
 				298F96BE2ABB5DA70051BBC8 /* LocationsDataService.swift in Sources */,
