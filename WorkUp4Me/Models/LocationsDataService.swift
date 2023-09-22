@@ -32,7 +32,6 @@ class LocationsDataService {
                 "Fit",
                 "fit-2",
                 "fit-3",
-                "fit-4",
                 "fit-5"
             ],
             link: "https://fitcenter.vn/phong-tap-quan-3/"),
@@ -40,23 +39,63 @@ class LocationsDataService {
             name: "T-Gym",
             cityName: "Binh Chanh District",
             coordinates: CLLocationCoordinate2D(latitude: 10.73397522529543, longitude: 106.67804535868876),
-            description: "The Trevi Fountain is a fountain in the Trevi district in Rome, Italy, designed by Italian architect Nicola Salvi and completed by Giuseppe Pannini and several others. Standing 26.3 metres high and 49.15 metres wide, it is the largest Baroque fountain in the city and one of the most famous fountains in the world.",
+            description: "T-Gym is a cutting-edge fitness center that redefines your fitness journey with top-notch equipment, expert trainers, and a supportive community. Whether you're a beginner or a seasoned athlete, T-Gym is your path to a healthier, happier life.",
             imageNames: [
-                "rome-trevifountain-1",
-                "rome-trevifountain-2",
-                "rome-trevifountain-3",
+                "tgym",
+                "tgym-2",
+                "tgym-3",
             ],
-            link: "https://en.wikipedia.org/wiki/Trevi_Fountain"),
+            link: "https://www.facebook.com/phongtapgymq8"),
         Location(
-            name: "Eiffel Tower",
-            cityName: "Paris",
-            coordinates: CLLocationCoordinate2D(latitude: 48.8584, longitude: 2.2945),
-            description: "The Eiffel Tower is a wrought-iron lattice tower on the Champ de Mars in Paris, France. It is named after the engineer Gustave Eiffel, whose company designed and built the tower. Locally nicknamed 'La dame de fer', it was constructed from 1887 to 1889 as the centerpiece of the 1889 World's Fair and was initially criticized by some of France's leading artists and intellectuals for its design, but it has become a global cultural icon of France and one of the most recognizable structures in the world.",
+            name: "Fit Force",
+            cityName: "District 1",
+            coordinates: CLLocationCoordinate2D(latitude: 10.768226355781236, longitude: 106.68875949166264),
+            description: "Fit Force Fitness and Yoga centers are strategically located in various cities and regions, offering a diverse range of fitness and wellness options. These centers aim to provide convenient access to their programs, with locations in urban areas, suburbs, and even smaller towns. Whether you're looking for high-intensity workouts or peaceful yoga sessions, you can typically find Fit Force Fitness and Yoga centers to cater to your fitness needs in various settings.",
             imageNames: [
-                "paris-eiffeltower-1",
-                "paris-eiffeltower-2",
+                "fitforce",
+                "fitforce-2",
+                "fitforce-3",
+                "fitforce-4"
             ],
-            link: "https://en.wikipedia.org/wiki/Eiffel_Tower"),
+            link: "https://www.facebook.com/fitforcevn/?locale=vi_VN"),
+        Location(
+            name: "Ga Gym",
+            cityName: "District 10",
+            coordinates: CLLocationCoordinate2D(latitude: 10.774797639786032, longitude: 106.67798768936257),
+            description: "Welcome to Ga Gym, your gateway to a healthier and stronger you. At Ga Gym, we're committed to helping you reach your fitness goals and transform your lifestyle. Our state-of-the-art facilities, experienced trainers, and diverse range of fitness programs make us the perfect destination for individuals of all fitness levels. Whether you're a beginner looking to start your fitness journey or a seasoned athlete seeking to challenge your limits, Ga Gym is here to support you every step of the way. Join us today and discover a new level of fitness and wellness.",
+            imageNames: [
+                "gagym",
+                "gagym-2",
+                "gagym-3",
+                "gagym-4"
+            ],
+            link: "https://gagym.vn"),
+        Location(
+            name: "CITY Gym",
+            cityName: "District 10",
+            coordinates: CLLocationCoordinate2D(latitude: 10.772348743087381, longitude: 106.6688401980551),
+            description: "CITIGYM Van Hanh Mall set a record for the gym in the largest shopping center in Vietnam - 6000m2, with modern design and accommodating the entire Fitness industry. The Blockbuster has been ignited and will explode in October. Let's go saw bomb today!",
+            imageNames: [
+                "citygym",
+                "citygym-2",
+                "citygym-3",
+                "citygym-4",
+                "citygym-5"
+            ],
+            link: "https://citigym.com.vn/clb/gym-quan-10"),
+        Location(
+            name: "California Gym",
+            cityName: "Hoan Kiem District",
+            coordinates: CLLocationCoordinate2D(latitude: 21.02607471774706, longitude: 105.8480507063944),
+            description: "Welcome to California Gym, your premier fitness destination in the heart of Hoan Kiem District. With a commitment to wellness and vitality, California Gym offers a top-tier fitness experience that caters to all your health and fitness needs. Our state-of-the-art facilities, dedicated trainers, and a wide range of fitness programs ensure that you can achieve your goals, whether you're a seasoned athlete or just starting your fitness journey. Join us at California Gym in Hoan Kiem District and embark on a path to a healthier and more active lifestyle.",
+            imageNames: [
+                "caligym",
+                "caligym-2",
+                "caligym-3",
+                "caligym-4",
+                "caligym-5"
+            ],
+            link: "https://cali.vn/ha-noi/capital-tower"),
         Location(
             name: "Louvre Museum",
             cityName: "Paris",

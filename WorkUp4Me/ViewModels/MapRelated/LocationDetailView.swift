@@ -31,7 +31,7 @@ struct LocationDetailView: View {
         }
         .ignoresSafeArea()
         .background(.ultraThinMaterial)
-        .overlay(backButton, alignment: .topLeading)
+        .overlay(backButton, alignment: .topTrailing)
     }
 }
 
