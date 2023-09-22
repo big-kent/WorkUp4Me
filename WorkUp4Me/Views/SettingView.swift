@@ -12,47 +12,60 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestore
 
 struct SettingView: View {
+    
+    //Use userDault to store data from LoginView and display it here
+    @State private var userEmail: String = UserDefaults.standard.string(forKey: "userEmail") ?? ""
+    @State private var userPassword: String = UserDefaults.standard.string(forKey: "userPassword") ?? ""
+    @State private var userID: String = ""
+    
+    //Other data to store
     @State private var username: String = ""
-    @State private var password: String = ""
-    @State private var email: String = "email@gmail.com"
     @State private var disName: String = "Display name"
     @State private var birthDate: Date = Date()
     @State private var gender: String = ""
     @State private var isAboutUs: Bool = false
+    @EnvironmentObject var userDataManager: UserDataManager
+    
+    //Some side design UI
     @State private var isUserLoggedIn: Bool = true
-    @AppStorage("uid") var userID: String = ""
+    @State private var startAnimation: Bool = false
+    
+    //Use for dark mode
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
     let genders = ["Male", "Female", "Prefer Not To Say"]
+    
     
     var body: some View {
         ZStack{
             Form {
                 Section {
                     HStack {
-                        Text("Username")
+                        Text("User Password: ")
                         Spacer()
-                        TextField("\(username)", text: $username)
-                            .multilineTextAlignment(.trailing)
+                        Text(userPassword)
                     }
+                    
                     HStack {
-                        Text("Password")
+                        Text("User Email: ")
                         Spacer()
-                        SecureField("\(password)", text: $password)
-                            .multilineTextAlignment(.trailing)
-                    }
-                    HStack {
-                        Text("Email")
-                        Spacer()
-                        TextField("\(email)", text: $email)
-                            .multilineTextAlignment(.trailing)
+                        Text(userEmail)
                     }
                 } header: {
                     Text("Account")
                 }
                 
                 Section {
+                    HStack {
+                        Text("Full Name")
+                        Spacer()
+                        TextField("Full Name", text: $username)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    
                     HStack {
                         Text("Display Name")
                         Spacer()
@@ -72,14 +85,30 @@ struct SettingView: View {
                 }
                 
                 Section {
+                    Toggle("Dark Mode", isOn: $isDarkMode) // Dark mode switch
                     Text("About us")
                         .onTapGesture {
                             isAboutUs.toggle()
-                        }.alert("About Us", isPresented: $isAboutUs) {
-                            Button("OK", role: .cancel) { }
+                        }
+                        .alert("About Us", isPresented: $isAboutUs) {
+                            Button("OK", role: .cancel) {}
                         } message: {
                             Text("Email us")
                         }
+                    
+                    Button(action: {
+                        // Update user information in Firestore
+                        userDataManager.updateUserInfo(username: username, disName: disName) { error in
+                            if let error = error {
+                                print("Error updating user information: \(error.localizedDescription)")
+                            } else {
+                                print("User information updated successfully")
+                            }
+                        }
+                    }) {
+                        Text("Save Changes")
+                            .foregroundColor(.blue)
+                    }
                     
                     if isUserLoggedIn {
                         Button(action: {
@@ -100,10 +129,12 @@ struct SettingView: View {
                     } else {
                         Text(">.< You not logged yet baka 👉🏼👈🏼" )
                     }
+                    
                 } header: {
                     Text("Application")
                 }
             }
+            .environment(\.colorScheme, isDarkMode ? .dark : .light)
             .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
             .safeAreaInset(edge: .top, content: {
                 Color.clear.frame(height: 70)
@@ -114,7 +145,7 @@ struct SettingView: View {
         }
     }
 }
-    
+
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         SettingView()

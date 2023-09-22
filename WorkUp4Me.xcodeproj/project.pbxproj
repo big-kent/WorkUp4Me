@@ -13,6 +13,7 @@
 		298F96C22ABB73E20051BBC8 /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */; };
 		298F96C42ABB805E0051BBC8 /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C32ABB805E0051BBC8 /* LocationsListView.swift */; };
 		298F96C62ABB8AE80051BBC8 /* LocationPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */; };
+		939394182ABD8F7C00819F26 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939394172ABD8F7C00819F26 /* UserDataManager.swift */; };
 		939FF5CA2ABC586C00505ADA /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FF5C92ABC586C00505ADA /* LocationDetailView.swift */; };
 		939FF5CC2ABC58A000505ADA /* LocationMapAnnotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939FF5CB2ABC58A000505ADA /* LocationMapAnnotionView.swift */; };
 		93F7C8292AB9B03E0073FDD2 /* WorkUp4MeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */; };
@@ -46,6 +47,7 @@
 		298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
 		298F96C32ABB805E0051BBC8 /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
 		298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPreview.swift; sourceTree = "<group>"; };
+		939394172ABD8F7C00819F26 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		939FF5C92ABC586C00505ADA /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		939FF5CB2ABC58A000505ADA /* LocationMapAnnotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMapAnnotionView.swift; sourceTree = "<group>"; };
 		93F7C8252AB9B03E0073FDD2 /* WorkUp4Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkUp4Me.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,14 @@
 			path = MapRelated;
 			sourceTree = "<group>";
 		};
+		939394162ABD8F5700819F26 /* SettingRelated */ = {
+			isa = PBXGroup;
+			children = (
+				939394172ABD8F7C00819F26 /* UserDataManager.swift */,
+			);
+			path = SettingRelated;
+			sourceTree = "<group>";
+		};
 		93A5C4E42ABADE000095B33F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +209,7 @@
 		93F7C8502AB9B2D40073FDD2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				939394162ABD8F5700819F26 /* SettingRelated */,
 				9368A2962ABD509F007933DC /* CourseRelated */,
 				9368A2942ABD4FD7007933DC /* LoginRelated */,
 				9368A2952ABD5083007933DC /* TrainingRelated */,
@@ -305,6 +316,7 @@
 				939FF5CC2ABC58A000505ADA /* LocationMapAnnotionView.swift in Sources */,
 				93F7C8402AB9B17F0073FDD2 /* WelcomeView.swift in Sources */,
 				93F7C84F2AB9B2BF0073FDD2 /* SignUpView.swift in Sources */,
+				939394182ABD8F7C00819F26 /* UserDataManager.swift in Sources */,
 				298F96BE2ABB5DA70051BBC8 /* LocationsDataService.swift in Sources */,
 				93F7C84D2AB9B2A00073FDD2 /* LoginView.swift in Sources */,
 				93F7C8492AB9B23D0073FDD2 /* FeatureItem.swift in Sources */,

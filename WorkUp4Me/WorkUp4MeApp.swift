@@ -19,10 +19,13 @@ struct WorkUp4MeApp: App {
     
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var userDataManager = UserDataManager()
+    
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(userDataManager)
         }
     }
 }
