@@ -13,39 +13,98 @@
 import SwiftUI
 import Firebase
 
+class SettingViewModel:ObservableObject{
+    
+    @Published var errorMessage = ""
+    @Published var user: Users?
+
+    private var db = Firestore.firestore()
+    init() {
+        fetchCurrentUser()
+    }
+    private func fetchCurrentUser(){
+//
+//        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+//            self.errorMessage = "Could not find current user uid"
+//            return
+//        }
+        guard let uid = Auth.auth().currentUser?.uid else{
+            self.errorMessage = "Could not find currentuser uid "
+            return
+        }
+        self.errorMessage = uid
+        db.collection("Users").document(uid).getDocument { snapshot, error in
+            if let error = error{
+                print("Failed to fetch current user:",error)
+                return
+            }
+            
+            guard let data = snapshot?.data() else {
+                self.errorMessage = "No Data Found"
+                return
+            }
+            print(data)
+            self.errorMessage = "Data: \(data.description)"
+            let uid = data["uID"] as? String ?? ""
+            let gender = data["gender"] as? String ?? ""
+            let dOB = data["dateOfBirth"] as? String ?? ""
+            let email = data["email"] as? String ?? ""
+            let userName = data["userName"] as? String ?? ""
+            let disName = data["disName"] as? String ?? ""
+            let passWord = data ["password"] as? String ?? ""
+            
+            self.user = Users(uId: uid, userName: userName, password: passWord, email: email, dOB: dOB, gender: gender, displayName: disName)
+        }
+    }
+    
+}
+
 struct SettingView: View {
     @State private var username: String = ""
     @State private var password: String = ""
-    @State private var email: String = "email@gmail.com"
-    @State private var disName: String = "Display name"
+    @State private var email: String = ""
+    @State private var disName: String = ""
     @State private var birthDate: Date = Date()
     @State private var gender: String = ""
     @State private var isAboutUs: Bool = false
     @State private var isUserLoggedIn: Bool = true
     @AppStorage("uid") var userID: String = ""
-    
+//    @StateObject private var userViewModel = UsersViewModel()
     let genders = ["Male", "Female", "Prefer Not To Say"]
     
+    @ObservedObject var vm = SettingViewModel()
+    
+    func StringtoDate(string :String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        guard let date = dateFormatter.date(from: string) else { return Date.now }
+        return date
+    }
+    init(){
+        birthDate = StringtoDate(string: vm.user?.dOB ?? "")
+        gender = vm.user?.gender ?? ""
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         Form {
             Section {
                 HStack {
                     Text("Username")
                     Spacer()
-                    TextField("\(username)", text: $username)
+                    TextField("\(vm.user?.userName ?? "")", text: $username)
                         .multilineTextAlignment(.trailing)
                 }
                 HStack {
                     Text("Password")
                     Spacer()
-                    SecureField("\(password)", text: $password)
+                    SecureField("\(vm.user?.password ?? "")", text: $password)
                         .multilineTextAlignment(.trailing)
                 }
                 HStack {
                     Text("Email")
                     Spacer()
-                    TextField("\(email)", text: $email)
+                    TextField("\(vm.user?.email ?? "")", text: $email)
                         .multilineTextAlignment(.trailing)
                 }
             } header: {
@@ -56,7 +115,7 @@ struct SettingView: View {
                 HStack {
                     Text("Display Name")
                     Spacer()
-                    TextField("\(disName)", text: $disName)
+                    TextField("\(vm.user?.displayName ?? "")", text: $disName)
                         .multilineTextAlignment(.trailing)
                 }
                 DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {

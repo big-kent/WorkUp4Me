@@ -52,7 +52,7 @@ struct HomeView: View {
                     SettingView()
                         .tabItem {
                             Image(systemName: "person")
-                            Text("Settings")
+                            Text("Setting")
                         }
                 }
             }

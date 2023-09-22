@@ -13,6 +13,7 @@
 import SwiftUI
 
 struct CourseView: View {
+    
     @State var hasScrolled = false
     @Namespace var namespace
     @State var show = false

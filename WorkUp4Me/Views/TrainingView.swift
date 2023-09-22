@@ -20,6 +20,8 @@ struct TrainingView: View {
     @State private var selectedCategory: String? = nil // Default to nil (no category selected)
     @State private var isSheetPresented = false
     @State private var selectedExercise: Exercise? = nil
+    @State var show = false
+    @Namespace var namespace
     
     // Create a list of unique categories from allExercises
     var categories: [String] {
@@ -52,12 +54,14 @@ struct TrainingView: View {
         // You can copy the code from your previous filterExercises function
     }
     
+    @State private var startAnimation: Bool = false
+    
     var body: some View {
         ZStack {
-            VStack(spacing: 0) {
+            VStack (spacing: 0){
                 HStack {
                     Image(systemName: "magnifyingglass")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.blue)
                         .padding(.leading, 10) // Add padding to the search icon
                         
                     TextField("Search for exercise...", text: $searchText)
@@ -68,7 +72,6 @@ struct TrainingView: View {
                             filterExercises()
                         }
                         .foregroundColor(.primary)
-                        .accentColor(.purple)
                     
                     Button(action: {
                         searchText = ""
@@ -93,7 +96,7 @@ struct TrainingView: View {
                 .pickerStyle(MenuPickerStyle()) // Dropdown style
                 .padding(.horizontal, 16)
                 .foregroundColor(.primary) // Text color
-                .accentColor(.purple) // Accent color
+                .accentColor(.red) // Accent color
                 
                 // Conditional rendering of CardViews based on the filter
                 if filteredExercises.isEmpty {
@@ -103,16 +106,10 @@ struct TrainingView: View {
                         .padding(.top, 20)
                 } else {
                     List(filteredExercises, id: \.id) { ex in
-                        CardView(exercise: ex)
-                            .listRowBackground(Color.clear) // Transparent list row background
-                            .onTapGesture {
-                                selectedExercise = ex
-                                isSheetPresented.toggle()
-                            }
+                        NewRow(namespace: namespace, exercise: ex, show: $show)
                     }
                 }
             }
-        
             .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
             .safeAreaInset(edge: .top, content: {
                 Color.clear.frame(height: 70)
@@ -129,114 +126,121 @@ struct TrainingView: View {
 
 struct ExerciseDetailsView: View {
     var exercise: Exercise
-    
+
     var body: some View {
-        ScrollView {
-            VStack(alignment: .center, spacing: 16) {
-                Image(exercise.imageLink)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .cornerRadius(20)
-                    .shadow(radius: 5)
-                
-                Text(exercise.name)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                
-                Text(exercise.description)
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                
-                Divider()
-                
-                HStack {
-                    Text("Category:")
-                        .font(.headline)
-                        .foregroundColor(.primary)
+        ZStack{
+            ScrollView {
+                VStack(alignment: .center, spacing: 16) {
+                    Image(exercise.imageLink)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200, height: 200)
+                        .cornerRadius(20)
+                        .shadow(radius: 5)
+                    
+                    Text(exercise.name)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    
+                    Text(exercise.description)
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                    
+                    Divider()
+                    
+                    HStack {
+                        Text("Category:")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
+                        
+                        Text(exercise.category)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    HStack {
+                        Text("Calories:")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
+                        
+                        Text("\(exercise.calories)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
                     
                     Spacer()
-                    
-                    Text(exercise.category)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
                 }
-                
-                HStack {
-                    Text("Calories:")
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                    
-                    Spacer()
-                    
-                    Text("\(exercise.calories)")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                
-                Spacer()
+                .padding()
             }
-            .padding()
+            .navigationBarTitle(exercise.name, displayMode: .inline)
         }
-        .navigationBarTitle(exercise.name, displayMode: .inline)
     }
 }
-
-
 
 struct CardView: View {
     var exercise: Exercise
     @State private var reps: String = ""
-
+    
     var body: some View {
         VStack {
             Image(exercise.imageLink)
                 .resizable()
                 .scaledToFill()
-                .frame(height: 150)
-                .cornerRadius(16)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.purple, lineWidth: 2)
-                )
-                .clipped()
+                .frame(height: 200)
+                .cornerRadius(30)
+                .shadow(color: Color(.black).opacity(0.3), radius: 10, x: 0, y: 10)
             
             VStack(alignment: .leading, spacing: 8) {
                 Text(exercise.name)
-                    .font(.title2)
-                    .bold()
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.linearGradient(colors: [.primary, .primary.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .lineLimit(1)
                 
                 Text(exercise.description)
-                    .font(.subheadline)
+                    .font(.footnote)
+                    .multilineTextAlignment(.leading)
                     .lineLimit(2)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.secondary)
                 
                 HStack {
                     TextField("Reps", text: $reps)
+                        .cornerRadius(10)
                         .frame(width: 80)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .font(.system(size: 12))
                         .keyboardType(.numberPad)
-                        .onSubmit { // Handle the text field submission
+                        .onSubmit {
                             handleRepsSubmission()
                         }
                     
                     Spacer()
                     
                     Text("Calories: \(calculatedCalories)")
-                        .font(.system(size: 14))
-                        .bold()
-                        .foregroundColor(.purple)
+                        .font(.footnote)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.secondary)
                 }
             }
-            .padding()
+            .padding( 20)
         }
-        .background(Color.cardBackground) // Card background color
-        .cornerRadius(16)
-        .shadow(radius: 2) // Reduced shadow
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 30)
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [.white, Color(.sRGB, white: 0.98, opacity: 1.0)]), // Customize gradient colors here
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .shadow(color: Color(.black).opacity(0.3), radius: 10, x: 0, y: 10)
+        )
     }
     
     var calculatedCalories: Int {
@@ -252,12 +256,6 @@ struct CardView: View {
         // For example, you can save the value or perform an action
         print("Reps submitted: \(reps)")
     }
-}
-
-
-extension Color {
-    static let secondaryBackground = Color("SecondaryBackground") // Define your background color
-    static let cardBackground = Color("CardBackground") // Define your card background color
 }
 
 struct TrainingView_Previews: PreviewProvider {
