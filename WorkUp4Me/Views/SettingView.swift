@@ -12,140 +12,167 @@
 
 import SwiftUI
 import Firebase
-import FirebaseFirestore
+
+class SettingViewModel:ObservableObject{
+    
+    @Published var errorMessage = ""
+    @Published var user: Users?
+
+    private var db = Firestore.firestore()
+    init() {
+        fetchCurrentUser()
+    }
+    private func fetchCurrentUser(){
+//
+//        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+//            self.errorMessage = "Could not find current user uid"
+//            return
+//        }
+        guard let uid = Auth.auth().currentUser?.uid else{
+            self.errorMessage = "Could not find currentuser uid "
+            return
+        }
+        self.errorMessage = uid
+        db.collection("Users").document(uid).getDocument { snapshot, error in
+            if let error = error{
+                print("Failed to fetch current user:",error)
+                return
+            }
+            
+            guard let data = snapshot?.data() else {
+                self.errorMessage = "No Data Found"
+                return
+            }
+            print(data)
+            self.errorMessage = "Data: \(data.description)"
+            let uid = data["uID"] as? String ?? ""
+            let gender = data["gender"] as? String ?? ""
+            let dOB = data["dateOfBirth"] as? String ?? ""
+            let email = data["email"] as? String ?? ""
+            let userName = data["userName"] as? String ?? ""
+            let disName = data["disName"] as? String ?? ""
+            let passWord = data ["password"] as? String ?? ""
+            
+            self.user = Users(uId: uid, userName: userName, password: passWord, email: email, dOB: dOB, gender: gender, displayName: disName)
+        }
+    }
+    
+}
 
 struct SettingView: View {
-    
-    //Use userDault to store data from LoginView and display it here
-    @State private var userEmail: String = UserDefaults.standard.string(forKey: "userEmail") ?? ""
-    @State private var userPassword: String = UserDefaults.standard.string(forKey: "userPassword") ?? ""
-    @State private var userID: String = ""
-    
-    //Other data to store
     @State private var username: String = ""
-    @State private var disName: String = "Display name"
+    @State private var password: String = ""
+    @State private var email: String = ""
+    @State private var disName: String = ""
     @State private var birthDate: Date = Date()
     @State private var gender: String = ""
     @State private var isAboutUs: Bool = false
-    @EnvironmentObject var userDataManager: UserDataManager
-    
-    //Some side design UI
     @State private var isUserLoggedIn: Bool = true
-    @State private var startAnimation: Bool = false
-    
-    //Use for dark mode
-    @AppStorage("isDarkMode") var isDarkMode: Bool = false
-    
+    @AppStorage("uid") var userID: String = ""
+//    @StateObject private var userViewModel = UsersViewModel()
     let genders = ["Male", "Female", "Prefer Not To Say"]
     
+    @ObservedObject var vm = SettingViewModel()
+    
+    func StringtoDate(string :String) -> Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        guard let date = dateFormatter.date(from: string) else { return Date.now }
+        return date
+    }
+    init(){
+        birthDate = StringtoDate(string: vm.user?.dOB ?? "")
+        gender = vm.user?.gender ?? ""
+    }
     
     var body: some View {
-        ZStack{
-            Form {
-                Section {
-                    HStack {
-                        Text("User Password: ")
-                        Spacer()
-                        Text(userPassword)
-                    }
-                    
-                    HStack {
-                        Text("User Email: ")
-                        Spacer()
-                        Text(userEmail)
-                    }
-                } header: {
-                    Text("Account")
+        Form {
+            Section {
+                HStack {
+                    Text("Username")
+                    Spacer()
+                    TextField("\(vm.user?.userName ?? "")", text: $username)
+                        .multilineTextAlignment(.trailing)
                 }
-                
-                Section {
-                    HStack {
-                        Text("Full Name")
-                        Spacer()
-                        TextField("Full Name", text: $username)
-                            .multilineTextAlignment(.trailing)
-                    }
-                    
-                    HStack {
-                        Text("Display Name")
-                        Spacer()
-                        TextField("\(disName)", text: $disName)
-                            .multilineTextAlignment(.trailing)
-                    }
-                    DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
-                        Text("Date of Birth")
-                    }
-                    Picker("Gender", selection: $gender) {
-                        ForEach(genders, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                } header: {
-                    Text("Profile")
+                HStack {
+                    Text("Password")
+                    Spacer()
+                    SecureField("\(vm.user?.password ?? "")", text: $password)
+                        .multilineTextAlignment(.trailing)
                 }
+                HStack {
+                    Text("Email")
+                    Spacer()
+                    TextField("\(vm.user?.email ?? "")", text: $email)
+                        .multilineTextAlignment(.trailing)
+                }
+            } header: {
+                Text("Account")
+            }
+            
+            Section {
+                HStack {
+                    Text("Display Name")
+                    Spacer()
+                    TextField("\(vm.user?.displayName ?? "")", text: $disName)
+                        .multilineTextAlignment(.trailing)
+                }
+                DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
+                    Text("Date of Birth")
+                }
+                Picker("Gender", selection: $gender) {
+                    ForEach(genders, id: \.self) {
+                        Text($0)
+                    }
+                }
+            } header: {
+                Text("Profile")
+            }
+            
+            Section {
+                Text("About us")
+                    .onTapGesture {
+                        isAboutUs.toggle()
+                    }.alert("About Us", isPresented: $isAboutUs) {
+                        Button("OK", role: .cancel) { }
+                    } message: {
+                        Text("Email us")
+                    }
                 
-                Section {
-                    Toggle("Dark Mode", isOn: $isDarkMode) // Dark mode switch
-                    Text("About us")
-                        .onTapGesture {
-                            isAboutUs.toggle()
-                        }
-                        .alert("About Us", isPresented: $isAboutUs) {
-                            Button("OK", role: .cancel) {}
-                        } message: {
-                            Text("Email us")
-                        }
-                    
+                if isUserLoggedIn {
                     Button(action: {
-                        // Update user information in Firestore
-                        userDataManager.updateUserInfo(username: username, disName: disName) { error in
-                            if let error = error {
-                                print("Error updating user information: \(error.localizedDescription)")
-                            } else {
-                                print("User information updated successfully")
+                        let firebaseAuth = Auth.auth()
+                        do {
+                            try firebaseAuth.signOut()
+                            withAnimation {
+                                userID = ""
+                                isUserLoggedIn = false
                             }
+                        } catch let signOutError as NSError {
+                            print("Error signing out: %@", signOutError)
                         }
                     }) {
-                        Text("Save Changes")
-                            .foregroundColor(.blue)
+                        Text("Sign Out")
+                            .foregroundColor(.red)
                     }
-                    
-                    if isUserLoggedIn {
-                        Button(action: {
-                            let firebaseAuth = Auth.auth()
-                            do {
-                                try firebaseAuth.signOut()
-                                withAnimation {
-                                    userID = ""
-                                    isUserLoggedIn = false
-                                }
-                            } catch let signOutError as NSError {
-                                print("Error signing out: %@", signOutError)
-                            }
-                        }) {
-                            Text("Sign Out")
-                                .foregroundColor(.red)
-                        }
-                    } else {
-                        Text(">.< You not logged yet baka 👉🏼👈🏼" )
-                    }
-                    
-                } header: {
-                    Text("Application")
+                } else {
+                    Text(">.< You not logged yet baka 👉🏼👈🏼" )
                 }
+            } header: {
+                Text("Application")
             }
-            .environment(\.colorScheme, isDarkMode ? .dark : .light)
-            .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
-            .safeAreaInset(edge: .top, content: {
-                Color.clear.frame(height: 70)
-            })
-            .overlay(
-                NavigationBar(title: "Training")
-            )
         }
+        .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
+        .safeAreaInset(edge: .top, content: {
+            Color.clear.frame(height: 70)
+        })
+        .overlay(
+            NavigationBar(title: "Training")
+        )
     }
 }
-
+    
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
         SettingView()

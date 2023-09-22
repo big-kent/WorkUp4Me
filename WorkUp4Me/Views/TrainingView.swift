@@ -20,6 +20,8 @@ struct TrainingView: View {
     @State private var selectedCategory: String? = nil // Default to nil (no category selected)
     @State private var isSheetPresented = false
     @State private var selectedExercise: Exercise? = nil
+    @State var show = false
+    @Namespace var namespace
     
     // Create a list of unique categories from allExercises
     var categories: [String] {
@@ -104,12 +106,7 @@ struct TrainingView: View {
                         .padding(.top, 20)
                 } else {
                     List(filteredExercises, id: \.id) { ex in
-                        CardView(exercise: ex)
-                            .listRowBackground(Color.clear) // Transparent list row background
-                            .onTapGesture {
-                                selectedExercise = ex
-                                isSheetPresented.toggle()
-                            }
+                        NewRow(namespace: namespace, exercise: ex, show: $show)
                     }
                 }
             }

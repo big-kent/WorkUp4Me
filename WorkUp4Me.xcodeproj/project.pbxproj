@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25ED45872ABD9AEE00FCDA6A /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ED45862ABD9AEE00FCDA6A /* Users.swift */; };
+		25ED45892ABD9F2E00FCDA6A /* NewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ED45882ABD9F2E00FCDA6A /* NewRow.swift */; };
 		298F96B22ABB55C00051BBC8 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96B12ABB55C00051BBC8 /* SettingView.swift */; };
 		298F96BE2ABB5DA70051BBC8 /* LocationsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */; };
 		298F96C02ABB6B760051BBC8 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298F96BF2ABB6B760051BBC8 /* Location.swift */; };
@@ -41,6 +43,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25ED45862ABD9AEE00FCDA6A /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		25ED45882ABD9F2E00FCDA6A /* NewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRow.swift; sourceTree = "<group>"; };
 		298F96B12ABB55C00051BBC8 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsDataService.swift; sourceTree = "<group>"; };
 		298F96BF2ABB6B760051BBC8 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 				93F7C8512AB9B5690073FDD2 /* Exercise.swift */,
 				298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */,
 				298F96BF2ABB6B760051BBC8 /* Location.swift */,
+				25ED45862ABD9AEE00FCDA6A /* Users.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 			children = (
 				93F7C8532AB9B5690073FDD2 /* Row.swift */,
 				93F7C84A2AB9B2700073FDD2 /* NavigationBar.swift */,
+				25ED45882ABD9F2E00FCDA6A /* NewRow.swift */,
 			);
 			path = TrainingRelated;
 			sourceTree = "<group>";
@@ -177,7 +183,6 @@
 				298F96BC2ABB5D810051BBC8 /* Models */,
 				93F7C8502AB9B2D40073FDD2 /* ViewModels */,
 				93F7C8362AB9B0750073FDD2 /* Views */,
-				93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */,
 				93F7C82A2AB9B03E0073FDD2 /* ContentView.swift */,
 				93F7C82C2AB9B03F0073FDD2 /* Assets.xcassets */,
 				93F7C82E2AB9B03F0073FDD2 /* Preview Content */,
@@ -202,6 +207,7 @@
 				93F7C8372AB9B0AD0073FDD2 /* CourseView.swift */,
 				93F7C85E2AB9B6FD0073FDD2 /* MapView.swift */,
 				298F96B12ABB55C00051BBC8 /* SettingView.swift */,
+				93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,12 +315,14 @@
 				93F7C8542AB9B5690073FDD2 /* Exercise.swift in Sources */,
 				93F7C85F2AB9B6FD0073FDD2 /* MapView.swift in Sources */,
 				93F7C8452AB9B1E60073FDD2 /* CourseDetailView.swift in Sources */,
+				25ED45892ABD9F2E00FCDA6A /* NewRow.swift in Sources */,
 				298F96C22ABB73E20051BBC8 /* LocationsViewModel.swift in Sources */,
 				93F7C8292AB9B03E0073FDD2 /* WorkUp4MeApp.swift in Sources */,
 				93F7C8382AB9B0AD0073FDD2 /* CourseView.swift in Sources */,
 				93F7C8432AB9B1B90073FDD2 /* AuthView.swift in Sources */,
 				939FF5CC2ABC58A000505ADA /* LocationMapAnnotionView.swift in Sources */,
 				93F7C8402AB9B17F0073FDD2 /* WelcomeView.swift in Sources */,
+				25ED45872ABD9AEE00FCDA6A /* Users.swift in Sources */,
 				93F7C84F2AB9B2BF0073FDD2 /* SignUpView.swift in Sources */,
 				939394182ABD8F7C00819F26 /* UserDataManager.swift in Sources */,
 				298F96BE2ABB5DA70051BBC8 /* LocationsDataService.swift in Sources */,

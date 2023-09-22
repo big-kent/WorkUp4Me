@@ -59,13 +59,6 @@ struct Row: View {
                 .shadow(color: Color(.black).opacity(0.3), radius: 10, x: 0, y: 10)
                 .padding(.horizontal, 20)
                 .frame(width: .infinity, alignment: .leading)
-                .overlay(
-                    Rectangle()
-                        .frame(height: 2)
-                        .padding(.horizontal, 50)
-                        .foregroundColor(.black),
-                    alignment: .bottom
-                )
             }
         }
     }
