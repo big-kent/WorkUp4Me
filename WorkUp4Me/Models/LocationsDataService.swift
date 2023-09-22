@@ -97,14 +97,15 @@ class LocationsDataService {
             ],
             link: "https://cali.vn/ha-noi/capital-tower"),
         Location(
-            name: "Louvre Museum",
-            cityName: "Paris",
-            coordinates: CLLocationCoordinate2D(latitude: 48.8606, longitude: 2.3376),
-            description: "The Louvre, or the Louvre Museum, is the world's most-visited museum and a historic monument in Paris, France. It is the home of some of the best-known works of art, including the Mona Lisa and the Venus de Milo. A central landmark of the city, it is located on the Right Bank of the Seine in the city's 1st arrondissement.",
+            name: " Elite Fitness",
+            cityName: "Ly Thuong Kiet",
+            coordinates: CLLocationCoordinate2D(latitude: 21.023406017881573, longitude: 105.85491818008408),
+            description: "Welcome to Elite Fitness, where excellence meets wellness. At Elite Fitness, we are dedicated to providing you with a fitness experience that goes beyond the ordinary. Our cutting-edge facilities, highly skilled trainers, and diverse array of fitness programs are designed to elevate your physical and mental well-being. Whether you're a fitness enthusiast looking to push your limits or someone starting their fitness journey, Elite Fitness is your destination for achieving your health and fitness goals. Join us and experience the elite standard of fitness and wellness.",
             imageNames: [
-                "paris-louvre-1",
-                "paris-louvre-2",
-                "paris-louvre-3",
+                "elite",
+                "elit-2",
+                "elit-3",
+                "elit-4"
             ],
             link: "https://en.wikipedia.org/wiki/Louvre"),
     ]
