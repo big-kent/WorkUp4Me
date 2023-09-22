@@ -95,6 +95,47 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		9368A2942ABD4FD7007933DC /* LoginRelated */ = {
+			isa = PBXGroup;
+			children = (
+				93F7C8422AB9B1B90073FDD2 /* AuthView.swift */,
+				93F7C84C2AB9B2A00073FDD2 /* LoginView.swift */,
+				93F7C84E2AB9B2BF0073FDD2 /* SignUpView.swift */,
+			);
+			path = LoginRelated;
+			sourceTree = "<group>";
+		};
+		9368A2952ABD5083007933DC /* TrainingRelated */ = {
+			isa = PBXGroup;
+			children = (
+				93F7C8532AB9B5690073FDD2 /* Row.swift */,
+				93F7C84A2AB9B2700073FDD2 /* NavigationBar.swift */,
+			);
+			path = TrainingRelated;
+			sourceTree = "<group>";
+		};
+		9368A2962ABD509F007933DC /* CourseRelated */ = {
+			isa = PBXGroup;
+			children = (
+				93F7C8482AB9B23D0073FDD2 /* FeatureItem.swift */,
+				93F7C8442AB9B1E60073FDD2 /* CourseDetailView.swift */,
+				93F7C8462AB9B2140073FDD2 /* CourseItem.swift */,
+			);
+			path = CourseRelated;
+			sourceTree = "<group>";
+		};
+		9368A2972ABD5125007933DC /* MapRelated */ = {
+			isa = PBXGroup;
+			children = (
+				939FF5CB2ABC58A000505ADA /* LocationMapAnnotionView.swift */,
+				298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */,
+				298F96C32ABB805E0051BBC8 /* LocationsListView.swift */,
+				298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */,
+				939FF5C92ABC586C00505ADA /* LocationDetailView.swift */,
+			);
+			path = MapRelated;
+			sourceTree = "<group>";
+		};
 		93A5C4E42ABADE000095B33F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,8 +165,7 @@
 				93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */,
 				93A5C4E42ABADE000095B33F /* Helper */,
 				298F96BC2ABB5D810051BBC8 /* Models */,
-				93F7C8502AB9B2D40073FDD2 /* ViewModel1 */,
-				93F7C8412AB9B1A40073FDD2 /* ViewModel2 */,
+				93F7C8502AB9B2D40073FDD2 /* ViewModels */,
 				93F7C8362AB9B0750073FDD2 /* Views */,
 				93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */,
 				93F7C82A2AB9B03E0073FDD2 /* ContentView.swift */,
@@ -156,31 +196,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		93F7C8412AB9B1A40073FDD2 /* ViewModel2 */ = {
+		93F7C8502AB9B2D40073FDD2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				93F7C8422AB9B1B90073FDD2 /* AuthView.swift */,
-				93F7C8442AB9B1E60073FDD2 /* CourseDetailView.swift */,
-				93F7C8462AB9B2140073FDD2 /* CourseItem.swift */,
-				93F7C8482AB9B23D0073FDD2 /* FeatureItem.swift */,
-				93F7C84A2AB9B2700073FDD2 /* NavigationBar.swift */,
-				93F7C84C2AB9B2A00073FDD2 /* LoginView.swift */,
-				93F7C84E2AB9B2BF0073FDD2 /* SignUpView.swift */,
+				9368A2962ABD509F007933DC /* CourseRelated */,
+				9368A2942ABD4FD7007933DC /* LoginRelated */,
+				9368A2952ABD5083007933DC /* TrainingRelated */,
+				9368A2972ABD5125007933DC /* MapRelated */,
 			);
-			path = ViewModel2;
-			sourceTree = "<group>";
-		};
-		93F7C8502AB9B2D40073FDD2 /* ViewModel1 */ = {
-			isa = PBXGroup;
-			children = (
-				939FF5CB2ABC58A000505ADA /* LocationMapAnnotionView.swift */,
-				939FF5C92ABC586C00505ADA /* LocationDetailView.swift */,
-				298F96C52ABB8AE80051BBC8 /* LocationPreview.swift */,
-				298F96C32ABB805E0051BBC8 /* LocationsListView.swift */,
-				298F96C12ABB73E20051BBC8 /* LocationsViewModel.swift */,
-				93F7C8532AB9B5690073FDD2 /* Row.swift */,
-			);
-			path = ViewModel1;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

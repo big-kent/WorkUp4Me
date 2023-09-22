@@ -27,90 +27,91 @@ struct SettingView: View {
     let genders = ["Male", "Female", "Prefer Not To Say"]
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        Form {
-            Section {
-                HStack {
-                    Text("Username")
-                    Spacer()
-                    TextField("\(username)", text: $username)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Password")
-                    Spacer()
-                    SecureField("\(password)", text: $password)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Email")
-                    Spacer()
-                    TextField("\(email)", text: $email)
-                        .multilineTextAlignment(.trailing)
-                }
-            } header: {
-                Text("Account")
-            }
-            
-            Section {
-                HStack {
-                    Text("Display Name")
-                    Spacer()
-                    TextField("\(disName)", text: $disName)
-                        .multilineTextAlignment(.trailing)
-                }
-                DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
-                    Text("Date of Birth")
-                }
-                Picker("Gender", selection: $gender) {
-                    ForEach(genders, id: \.self) {
-                        Text($0)
+        ZStack{
+            Form {
+                Section {
+                    HStack {
+                        Text("Username")
+                        Spacer()
+                        TextField("\(username)", text: $username)
+                            .multilineTextAlignment(.trailing)
                     }
-                }
-            } header: {
-                Text("Profile")
-            }
-            
-            Section {
-                Text("About us")
-                    .onTapGesture {
-                        isAboutUs.toggle()
-                    }.alert("About Us", isPresented: $isAboutUs) {
-                        Button("OK", role: .cancel) { }
-                    } message: {
-                        Text("Email us")
+                    HStack {
+                        Text("Password")
+                        Spacer()
+                        SecureField("\(password)", text: $password)
+                            .multilineTextAlignment(.trailing)
                     }
+                    HStack {
+                        Text("Email")
+                        Spacer()
+                        TextField("\(email)", text: $email)
+                            .multilineTextAlignment(.trailing)
+                    }
+                } header: {
+                    Text("Account")
+                }
                 
-                if isUserLoggedIn {
-                    Button(action: {
-                        let firebaseAuth = Auth.auth()
-                        do {
-                            try firebaseAuth.signOut()
-                            withAnimation {
-                                userID = ""
-                                isUserLoggedIn = false
-                            }
-                        } catch let signOutError as NSError {
-                            print("Error signing out: %@", signOutError)
-                        }
-                    }) {
-                        Text("Sign Out")
-                            .foregroundColor(.red)
+                Section {
+                    HStack {
+                        Text("Display Name")
+                        Spacer()
+                        TextField("\(disName)", text: $disName)
+                            .multilineTextAlignment(.trailing)
                     }
-                } else {
-                    Text(">.< You not logged yet baka 👉🏼👈🏼" )
+                    DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
+                        Text("Date of Birth")
+                    }
+                    Picker("Gender", selection: $gender) {
+                        ForEach(genders, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                } header: {
+                    Text("Profile")
                 }
-            } header: {
-                Text("Application")
+                
+                Section {
+                    Text("About us")
+                        .onTapGesture {
+                            isAboutUs.toggle()
+                        }.alert("About Us", isPresented: $isAboutUs) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text("Email us")
+                        }
+                    
+                    if isUserLoggedIn {
+                        Button(action: {
+                            let firebaseAuth = Auth.auth()
+                            do {
+                                try firebaseAuth.signOut()
+                                withAnimation {
+                                    userID = ""
+                                    isUserLoggedIn = false
+                                }
+                            } catch let signOutError as NSError {
+                                print("Error signing out: %@", signOutError)
+                            }
+                        }) {
+                            Text("Sign Out")
+                                .foregroundColor(.red)
+                        }
+                    } else {
+                        Text(">.< You not logged yet baka 👉🏼👈🏼" )
+                    }
+                } header: {
+                    Text("Application")
+                }
             }
+            .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
+            .safeAreaInset(edge: .top, content: {
+                Color.clear.frame(height: 70)
+            })
+            .overlay(
+                NavigationBar(title: "Training")
+            )
         }
-        .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
-        .safeAreaInset(edge: .top, content: {
-            Color.clear.frame(height: 70)
-        })
-        .overlay(
-            NavigationBar(title: "Training")
-        )
     }
 }
     
