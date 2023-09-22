@@ -75,7 +75,7 @@ extension LocationDetailView {
                 .foregroundColor(.secondary)
 
             if let url = URL(string: location.link) {
-                Link("Read more on Wikipedia", destination: url)
+                Link("Read more on Our Website", destination: url)
                     .font(.headline)
                     .tint(.blue)
             }

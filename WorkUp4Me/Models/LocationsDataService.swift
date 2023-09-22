@@ -12,31 +12,34 @@ class LocationsDataService {
     
     static let locations: [Location] = [
         Location(
-            name: "Colosseum",
-            cityName: "Rome",
-            coordinates: CLLocationCoordinate2D(latitude: 41.8902, longitude: 12.4922),
-            description: "The Colosseum is an oval amphitheatre in the centre of the city of Rome, Italy, just east of the Roman Forum. It is the largest ancient amphitheatre ever built, and is still the largest standing amphitheatre in the world today, despite its age.",
+            name: "California Gym",
+            cityName: "LIM TOWER District 3",
+            coordinates: CLLocationCoordinate2D(latitude: 10.77476271362452, longitude: 106.68841593529855),
+            description: "Possessing a convenient location right in the city center, California Fitness & Yoga District 3 promises to be a place to help you easily maintain a healthy lifestyle for your busy schedule.",
             imageNames: [
-                "rome-colosseum-1",
-                "rome-colosseum-2",
-                "rome-colosseum-3",
+                "California-D3",
+                "California-D3-2",
+                "California-D3-3",
+                "California-D3-4"
             ],
-            link: "https://en.wikipedia.org/wiki/Colosseum"),
+            link: "https://cali.vn/ho-chi-minh/lim-tower-club"),
         Location(
-            name: "Pantheon",
-            cityName: "Rome",
-            coordinates: CLLocationCoordinate2D(latitude: 41.8986, longitude: 12.4769),
-            description: "The Pantheon is a former Roman temple and since the year 609 a Catholic church, in Rome, Italy, on the site of an earlier temple commissioned by Marcus Agrippa during the reign of Augustus.",
+            name: " FIT Center",
+            cityName: "District 3",
+            coordinates: CLLocationCoordinate2D(latitude: 10.771565625490844, longitude: 106.68457476852889),
+            description: "Coming from a dermatologist background, Ms. Nguyen Thi Thanh Ha (Fit Center Director) soon received a formula for exercising that has great effects on health and skin condition. It can be said that skin waves are a reflection of your health. Regular exercise will help you have healthy skin, more than any high-end cosmetics or diet. This has been proven by Ms. Ha's 12 years of solid experience in the beauty industry and her willingness to treat >100,000 customers. And publish your own main experience.",
             imageNames: [
-                "rome-pantheon-1",
-                "rome-pantheon-2",
-                "rome-pantheon-3",
+                "Fit",
+                "fit-2",
+                "fit-3",
+                "fit-4",
+                "fit-5"
             ],
-            link: "https://en.wikipedia.org/wiki/Pantheon,_Rome"),
+            link: "https://fitcenter.vn/phong-tap-quan-3/"),
         Location(
-            name: "Trevi Fountain",
-            cityName: "Rome",
-            coordinates: CLLocationCoordinate2D(latitude: 41.9009, longitude: 12.4833),
+            name: "T-Gym",
+            cityName: "Binh Chanh District",
+            coordinates: CLLocationCoordinate2D(latitude: 10.73397522529543, longitude: 106.67804535868876),
             description: "The Trevi Fountain is a fountain in the Trevi district in Rome, Italy, designed by Italian architect Nicola Salvi and completed by Giuseppe Pannini and several others. Standing 26.3 metres high and 49.15 metres wide, it is the largest Baroque fountain in the city and one of the most famous fountains in the world.",
             imageNames: [
                 "rome-trevifountain-1",
