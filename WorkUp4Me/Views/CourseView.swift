@@ -13,10 +13,53 @@
 import SwiftUI
 
 struct CourseView: View {
+    var video: [Video] = VideoList.topTen
+    @State private var startAnimation: Bool = false
+
     var body: some View {
-        Text("Hello World")
+        NavigationView {
+            List(video, id: \.id) { video in
+                NavigationLink(
+                    destination: CourseDetailView(video: video),
+                    label: {
+                        HStack {
+                            Image(video.imageName)
+                                .resizable()
+                                .frame(width: 110, height: 80) // Set a fixed size
+                                .cornerRadius(4)
+                                .padding(.vertical, 10)
+                            VStack(alignment: .leading, spacing: 5){
+                                Text(video.title)
+                                    .fontWeight(.semibold)
+                                    .lineLimit(2)
+                                    .minimumScaleFactor(0.5)
+                                Text(video.uploadDate)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    })
+            }
+            .coordinateSpace(name: "scroll")
+            .safeAreaInset(edge: .top, content: {
+                Color.clear.frame(height: 100)
+            })
+            .overlay(
+                NavigationBar(title: "Course")
+            )
+            .listStyle(PlainListStyle()) // Use PlainListStyle
+            .background(            LinearGradient(colors: [Color("Mint"), Color("Purple")], startPoint: startAnimation ? .topLeading : .bottomLeading, endPoint: startAnimation ? .bottomTrailing : .topTrailing)
+                .edgesIgnoringSafeArea(.all)
+                .onAppear {
+                    withAnimation(.linear(duration: 5.0).repeatForever()) {
+                        startAnimation.toggle()
+                    }
+                }
+) // Set the background color of the List to red
+        }
     }
 }
+
 struct CourseView_Previews: PreviewProvider {
     static var previews: some View {
         CourseView()
