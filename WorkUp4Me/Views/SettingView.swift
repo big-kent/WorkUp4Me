@@ -43,17 +43,19 @@ class SettingViewModel:ObservableObject{
                 self.errorMessage = "No Data Found"
                 return
             }
-            print(data)
+            //print(data)
             self.errorMessage = "Data: \(data.description)"
             let uid = data["uID"] as? String ?? ""
             let email = data["email"] as? String ?? ""
             let passWord = data["password"] as? String ?? ""
-            let fullname = data["fullname"] as? String ?? ""
-            let displayName = data["displayname"] as? String ?? ""
+            let fullname = data["fullName"] as? String ?? ""
+            let displayName = data["displayName"] as? String ?? ""
             let dOB = data["dOB"] as? String ?? ""
-            let gender = data["gender"] as? String ?? ""
+            let gender = data["Gender"] as? String ?? ""
             let address = data["address"] as? String ?? ""
             let phoneNo = data["phoneNo"] as? String ?? ""
+            
+            print(displayName)
             
             self.user = Users(uId: uid, email: email, password: passWord, fullName: fullname, displayName: displayName, dOB: dOB, gender: gender, address: address, phoneNo: phoneNo)
         }
@@ -72,6 +74,7 @@ struct SettingView: View {
     @State private var gender: String = ""
     @State private var isAboutUs: Bool = false
     @State private var isUserLoggedIn: Bool = true
+    @State private var isDisabled: Bool = true
     @AppStorage("uid") var userID: String = ""
 //    @StateObject private var userViewModel = UsersViewModel()
     let genders = ["Male", "Female", "Prefer Not To Say"]
@@ -98,6 +101,7 @@ struct SettingView: View {
                     Spacer()
                     TextField("\(vm.user?.email ?? "")", text: $email)
                         .multilineTextAlignment(.trailing)
+                        .disabled(isDisabled)
                 }
                 HStack {
                     Text("Password")
@@ -112,7 +116,7 @@ struct SettingView: View {
             
             Section {
                 HStack {
-                    Text("Fullname")
+                    Text("\(vm.user?.fullName ?? "" )")
                     Spacer()
                     TextField("\(vm.user?.fullName ?? "")", text: $fullName)
                         .multilineTextAlignment(.trailing)
@@ -156,7 +160,20 @@ struct SettingView: View {
                     } message: {
                         Text("Email us")
                     }
-                
+                    
+                if isDisabled == true{
+                    Text("Edit")
+                        .foregroundColor(.red)
+                        .onTapGesture {
+                            isDisabled.toggle()
+                        }
+                } else{
+                    Text("Save changes")
+                        .foregroundColor(.red)
+                        .onTapGesture {
+                            isDisabled.toggle()
+                        }
+                }
                 if isUserLoggedIn {
                     Button(action: {
                         let firebaseAuth = Auth.auth()
@@ -171,6 +188,7 @@ struct SettingView: View {
                         }
                     }) {
                         Text("Sign Out")
+                            .frame(maxWidth: .infinity, alignment: .center)
                             .foregroundColor(.red)
                     }
                 } else {
