@@ -21,8 +21,6 @@ struct CourseView: View {
     var body: some View {
         ZStack{
             ScrollView{
-                FeatureItem()
-                
                 if !show {
                     CourseItem(namespace: namespace, show: $show)
                         .onTapGesture {
@@ -30,7 +28,28 @@ struct CourseView: View {
                                 show.toggle()
                             }
                         }
+                    
                 }
+                if !show {
+                    FeatureItem()
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                                show.toggle()
+                            }
+                        }
+                    
+                }
+                if !show {
+                    FeatureItem()
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                                show.toggle()
+                            }
+                        }
+                    
+                }
+
+
             }
             .coordinateSpace(name: "scroll")
             .safeAreaInset(edge: .top, content: {
@@ -41,6 +60,10 @@ struct CourseView: View {
             )
             if show {
                 CourseDetailView(namespace: namespace, show: $show)
+            }
+            if show {
+                FeatureDetailView(namespace: namespace, show: $show)
+                
             }
         }
     }
