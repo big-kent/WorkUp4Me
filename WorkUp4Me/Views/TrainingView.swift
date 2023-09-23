@@ -20,7 +20,7 @@ struct TrainingView: View {
     @State private var selectedCategory: String? = nil // Default to nil (no category selected)
     @State private var isSheetPresented = false
     @State private var selectedExercise: Exercise? = nil
-    @State var show = false
+    @State var show = true
     @Namespace var namespace
     
     // Create a list of unique categories from allExercises
@@ -58,20 +58,27 @@ struct TrainingView: View {
     
     var body: some View {
         ZStack {
-            VStack (spacing: 0){
+            LinearGradient(colors: [Color("Mint"), Color("Purple")], startPoint: startAnimation ? .topLeading : .bottomLeading, endPoint: startAnimation ? .bottomTrailing : .topTrailing)
+                .edgesIgnoringSafeArea(.all)
+                .onAppear {
+                    withAnimation(.linear(duration: 5.0).repeatForever()) {
+                        startAnimation.toggle()
+                    }
+                }
+            
+            VStack(spacing: 0) {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.blue)
-                        .padding(.leading, 10) // Add padding to the search icon
-                        
+                        .padding(.leading, 10)
                     TextField("Search for exercise...", text: $searchText)
-                        .textFieldStyle(PlainTextFieldStyle()) // Use plain style
-                        .background(Color.white) // Add a background color
+                        .textFieldStyle(PlainTextFieldStyle())
+                        .background(Color.white)
                         .padding(.vertical, 10)
                         .onChange(of: searchText) { newValue in
                             filterExercises()
                         }
-                        .foregroundColor(.primary)
+                        .foregroundColor(.primary) // Set text color to primary color
                     
                     Button(action: {
                         searchText = ""
@@ -80,25 +87,29 @@ struct TrainingView: View {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(.gray)
                             .opacity(searchText.isEmpty ? 0 : 1)
-                            .frame(width: 20, height: 20) // Increase button size
+                            .frame(width: 20, height: 20)
                     }
-                    .padding(.trailing, 10) // Add padding to the clear button
                 }
-                .padding(.horizontal, 16)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(.white))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(lineWidth: 2)
+                        .foregroundColor(.white))
+                .padding()
                 
-                // Add a Picker for category selection
                 Picker(selection: $selectedCategory, label: Text("Select Category")) {
-                    Text("All").tag(nil as String?) // Include an "All" option
+                    Text("All").tag(nil as String?)
                     ForEach(categories, id: \.self) { category in
                         Text(category).tag(category as String?)
                     }
                 }
-                .pickerStyle(MenuPickerStyle()) // Dropdown style
-                .padding(.horizontal, 16)
-                .foregroundColor(.primary) // Text color
-                .accentColor(.red) // Accent color
+                .pickerStyle(MenuPickerStyle())
+                .padding(10)
+                .foregroundColor(.primary) // Set text color to primary color
+                .accentColor(.black) // Set accent color for buttons
                 
-                // Conditional rendering of CardViews based on the filter
                 if filteredExercises.isEmpty {
                     Text("No exercises found")
                         .font(.headline)
@@ -106,11 +117,16 @@ struct TrainingView: View {
                         .padding(.top, 20)
                 } else {
                     List(filteredExercises, id: \.id) { ex in
-                        NewRow(namespace: namespace, exercise: ex, show: $show)
+                        CardView(exercise: ex)
+                            .listRowBackground(Color.clear)
+                            .onTapGesture {
+                                selectedExercise = ex
+                                isSheetPresented.toggle()
+                            }
                     }
                 }
             }
-            .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
+            .edgesIgnoringSafeArea(.bottom)
             .safeAreaInset(edge: .top, content: {
                 Color.clear.frame(height: 70)
             })
@@ -119,67 +135,10 @@ struct TrainingView: View {
             )
         }
         .onAppear {
-            UITableView.appearance().separatorStyle = .none // Remove list separators
+            UITableView.appearance().separatorStyle = .none
         }
     }
-}
 
-struct ExerciseDetailsView: View {
-    var exercise: Exercise
-
-    var body: some View {
-        ZStack{
-            ScrollView {
-                VStack(alignment: .center, spacing: 16) {
-                    Image(exercise.imageLink)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 200)
-                        .cornerRadius(20)
-                        .shadow(radius: 5)
-                    
-                    Text(exercise.name)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    
-                    Text(exercise.description)
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                    
-                    Divider()
-                    
-                    HStack {
-                        Text("Category:")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                        
-                        Spacer()
-                        
-                        Text(exercise.category)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    HStack {
-                        Text("Calories:")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                        
-                        Spacer()
-                        
-                        Text("\(exercise.calories)")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    Spacer()
-                }
-                .padding()
-            }
-            .navigationBarTitle(exercise.name, displayMode: .inline)
-        }
-    }
 }
 
 struct CardView: View {
@@ -193,7 +152,6 @@ struct CardView: View {
                 .scaledToFill()
                 .frame(height: 200)
                 .cornerRadius(30)
-                .shadow(color: Color(.black).opacity(0.3), radius: 10, x: 0, y: 10)
             
             VStack(alignment: .leading, spacing: 8) {
                 Text(exercise.name)
@@ -239,7 +197,7 @@ struct CardView: View {
                         endPoint: .bottomTrailing
                     )
                 )
-                .shadow(color: Color(.black).opacity(0.3), radius: 10, x: 0, y: 10)
+                .shadow(color: Color(.black).opacity(0.3), radius: 5, x: 0, y: 8)
         )
     }
     
