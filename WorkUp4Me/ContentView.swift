@@ -16,7 +16,7 @@ struct ContentView: View {
     
     @State private var currentShowingView: String = ""
     
-    var body: some View {
+    var body: some View{
         WelcomeView(currentShowingView: $currentShowingView)
 
     }

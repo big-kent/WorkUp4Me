@@ -130,16 +130,22 @@ struct SignUpView: View {
                             let userData: [String: Any] = [
                                 "email": email,
                                 "password": password
-                                // Note: This is not recommended for securityv reasons.
-                                
+                                // Add other user-related data as needed
                             ]
                             
-                            // Add the data to Firestore under the "User" collection
+                            // Add the data to Firestore under the "Users" collection using the user's UID as the document ID
                             db.collection("Users").document(userID).setData(userData) { error in
                                 if let error = error {
                                     print("Error adding document: \(error)")
                                 } else {
                                     print("Document added with ID: \(userID)")
+                                    
+                                    // Now, save the userID in Firestore Authentication (if needed)
+                                    Auth.auth().currentUser?.updateEmail(to: email) { (error) in
+                                        if let error = error {
+                                            print("Error updating email in Firestore Authentication: \(error)")
+                                        }
+                                    }
                                 }
                             }
                         }
