@@ -10,10 +10,13 @@ import Foundation
 struct Users: Codable{
     
     var uId: String
-    var userName: String
-    var password: String
     var email: String
+    var password: String
+    var fullName: String
+    var displayName: String
     var dOB: String
     var gender: String
-    var displayName: String
+    var address: String
+    var phoneNo: String
+    
 }

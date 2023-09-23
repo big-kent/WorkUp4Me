@@ -46,23 +46,27 @@ class SettingViewModel:ObservableObject{
             print(data)
             self.errorMessage = "Data: \(data.description)"
             let uid = data["uID"] as? String ?? ""
-            let gender = data["gender"] as? String ?? ""
-            let dOB = data["dateOfBirth"] as? String ?? ""
             let email = data["email"] as? String ?? ""
-            let userName = data["userName"] as? String ?? ""
-            let disName = data["disName"] as? String ?? ""
-            let passWord = data ["password"] as? String ?? ""
+            let passWord = data["password"] as? String ?? ""
+            let fullname = data["fullname"] as? String ?? ""
+            let displayName = data["displayname"] as? String ?? ""
+            let dOB = data["dOB"] as? String ?? ""
+            let gender = data["gender"] as? String ?? ""
+            let address = data["address"] as? String ?? ""
+            let phoneNo = data["phoneNo"] as? String ?? ""
             
-            self.user = Users(uId: uid, userName: userName, password: passWord, email: email, dOB: dOB, gender: gender, displayName: disName)
+            self.user = Users(uId: uid, email: email, password: passWord, fullName: fullname, displayName: displayName, dOB: dOB, gender: gender, address: address, phoneNo: phoneNo)
         }
     }
     
 }
 
 struct SettingView: View {
-    @State private var username: String = ""
+    @State private var fullName: String = ""
     @State private var password: String = ""
     @State private var email: String = ""
+    @State private var phoneNo: String = ""
+    @State private var address: String = ""
     @State private var disName: String = ""
     @State private var birthDate: Date = Date()
     @State private var gender: String = ""
@@ -90,9 +94,9 @@ struct SettingView: View {
         Form {
             Section {
                 HStack {
-                    Text("Username")
+                    Text("Email")
                     Spacer()
-                    TextField("\(vm.user?.userName ?? "")", text: $username)
+                    TextField("\(vm.user?.email ?? "")", text: $email)
                         .multilineTextAlignment(.trailing)
                 }
                 HStack {
@@ -101,17 +105,18 @@ struct SettingView: View {
                     SecureField("\(vm.user?.password ?? "")", text: $password)
                         .multilineTextAlignment(.trailing)
                 }
-                HStack {
-                    Text("Email")
-                    Spacer()
-                    TextField("\(vm.user?.email ?? "")", text: $email)
-                        .multilineTextAlignment(.trailing)
-                }
+
             } header: {
                 Text("Account")
             }
             
             Section {
+                HStack {
+                    Text("Fullname")
+                    Spacer()
+                    TextField("\(vm.user?.fullName ?? "")", text: $fullName)
+                        .multilineTextAlignment(.trailing)
+                }
                 HStack {
                     Text("Display Name")
                     Spacer()
@@ -125,6 +130,18 @@ struct SettingView: View {
                     ForEach(genders, id: \.self) {
                         Text($0)
                     }
+                }
+                HStack {
+                    Text("Address")
+                    Spacer()
+                    TextField("\(vm.user?.address ?? "")", text: $address)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("Phone Number")
+                    Spacer()
+                    TextField("\(vm.user?.phoneNo ?? "")", text: $phoneNo)
+                        .multilineTextAlignment(.trailing)
                 }
             } header: {
                 Text("Profile")
