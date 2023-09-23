@@ -12,6 +12,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import Firebase
 
 struct SignUpView: View {
     
@@ -35,10 +36,9 @@ struct SignUpView: View {
             
             LinearGradient(colors: [Color("Mint"),Color("Purple")],startPoint: startAnimation ? .topLeading : .bottomLeading,endPoint: startAnimation ? .bottomTrailing: .topTrailing)
                 .edgesIgnoringSafeArea(.all)
-                .onAppear {withAnimation(.linear(duration: 5.0).repeatForever()) {
-                                    startAnimation.toggle()
-                                }
-                            }
+                .onAppear
+            {withAnimation(.linear(duration: 5.0).repeatForever()) {startAnimation.toggle()}
+            }
             
             VStack {
                 HStack {
@@ -122,6 +122,26 @@ struct SignUpView: View {
                         if let authResult = authResult {
                             print(authResult.user.uid)
                             userID = authResult.user.uid
+                            
+                            // Create a reference to the Firestore database
+                            let db = Firestore.firestore()
+                            
+                            // Create a dictionary to store the user's data
+                            let userData: [String: Any] = [
+                                "email": email,
+                                "password": password
+                                // Note: This is not recommended for securityv reasons.
+                                
+                            ]
+                            
+                            // Add the data to Firestore under the "User" collection
+                            db.collection("Users").document(userID).setData(userData) { error in
+                                if let error = error {
+                                    print("Error adding document: \(error)")
+                                } else {
+                                    print("Document added with ID: \(userID)")
+                                }
+                            }
                         }
                     }
                 } label: {

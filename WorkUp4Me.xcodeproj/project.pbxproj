@@ -93,13 +93,20 @@
 		298F96BC2ABB5D810051BBC8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				93F7C8522AB9B5690073FDD2 /* String.swift */,
 				93F7C8512AB9B5690073FDD2 /* Exercise.swift */,
 				298F96BD2ABB5DA70051BBC8 /* LocationsDataService.swift */,
 				298F96BF2ABB6B760051BBC8 /* Location.swift */,
 				25ED45862ABD9AEE00FCDA6A /* Users.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		935096A32ABEB855005017C2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				93F7C8522AB9B5690073FDD2 /* String.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		9368A2942ABD4FD7007933DC /* LoginRelated */ = {
@@ -152,13 +159,6 @@
 			path = SettingRelated;
 			sourceTree = "<group>";
 		};
-		93A5C4E42ABADE000095B33F /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
 		93F7C81C2AB9B03E0073FDD2 = {
 			isa = PBXGroup;
 			children = (
@@ -179,7 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */,
-				93A5C4E42ABADE000095B33F /* Helper */,
+				935096A32ABEB855005017C2 /* Extensions */,
 				298F96BC2ABB5D810051BBC8 /* Models */,
 				93F7C8502AB9B2D40073FDD2 /* ViewModels */,
 				93F7C8362AB9B0750073FDD2 /* Views */,

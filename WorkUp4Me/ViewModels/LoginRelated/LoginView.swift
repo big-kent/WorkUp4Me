@@ -128,9 +128,6 @@ struct LoginView: View {
                                     withAnimation {
                                         userID = authResult.user.uid
                                     }
-                                    // Save email and password to UserDefaults
-                                    UserDefaults.standard.set(email, forKey: "userEmail")
-                                    UserDefaults.standard.set(password, forKey: "userPassword")
                                 }
                             }
                         } label: {
