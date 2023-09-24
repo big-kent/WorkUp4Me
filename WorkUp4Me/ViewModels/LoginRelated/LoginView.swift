@@ -52,7 +52,7 @@ struct LoginView: View {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is a security check reason.") { success, authenticationError in
                 
                 if success {
-                    text = "UNLOCKED"
+                    HomeView()
                 } else {
                     text = "There was a problem!"
                 }

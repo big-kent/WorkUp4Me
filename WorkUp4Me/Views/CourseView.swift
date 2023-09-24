@@ -42,7 +42,7 @@ struct CourseView: View {
             }
             .coordinateSpace(name: "scroll")
             .safeAreaInset(edge: .top, content: {
-                Color.clear.frame(height: 100)
+                Color.clear.frame(height: 60)
             })
             .overlay(
                 NavigationBar(title: "Course")
