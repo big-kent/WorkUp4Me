@@ -94,7 +94,19 @@ class SettingViewModel:ObservableObject{
                 db.collection("Users").document(uid).updateData(["phoneNo": phoneNo])
             }
         }
+    
+    public func changePassword(passWord: String){
+        if passWord != ""{
+            Auth.auth().currentUser?.updatePassword(to: passWord){error in
+                if let error = error{
+                    print("Failed to update password:",error)
+                    return
+                }
+            }
+        }
+    }
 }
+    
 
 struct SettingView: View {
     @State private var fullName: String = ""
@@ -145,7 +157,7 @@ struct SettingView: View {
                 HStack {
                     Text("Password")
                     Spacer()
-                    SecureField("\(vm.user?.password ?? "")", text: $password)
+                    SecureField("**********", text: $password)
                         .multilineTextAlignment(.trailing)
                         .disabled(isDisabled)
                 }
@@ -224,6 +236,7 @@ struct SettingView: View {
                             isDisabled.toggle()
                             SettingViewModel().updateCurrentUser(fullName: fullName, displayName: disName, dOB: DatetoString(date: birthDate),gender: gender,address: address,phoneNo: phoneNo )
                             vm.fetchCurrentUser()
+                            vm.changePassword(passWord: password)
                         }
                     
                 }
