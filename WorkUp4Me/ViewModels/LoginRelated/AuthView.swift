@@ -27,6 +27,12 @@ struct AuthView: View {
                 .preferredColorScheme(.dark)
                 .transition(.move(edge: .bottom))
         }
+        
+        if currentViewShowing == "login" {
+            LoginView(currentShowingView: $currentViewShowing)
+        } else if currentViewShowing == "home" {
+            HomeView()
+        }
     }
 }
 struct AuthView_Previews: PreviewProvider {

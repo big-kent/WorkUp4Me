@@ -24,8 +24,7 @@ struct LoginView: View {
     @State private var password: String = ""
     
     //For Face ID
-    @State private var unlocked = false
-    @State private var text = "LOCKED"
+    @State private var isFaceIDAvailable = false
     
     // Track user login state
     @State private var isUserLoggedIn: Bool = true
@@ -39,27 +38,6 @@ struct LoginView: View {
         // 1 special char
         let passwordRegex = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])(?=.*[A-Z]).{6,}$")
         return passwordRegex.evaluate(with: password)
-    }
-    
-    func authenticate() {
-        let context = LAContext()
-        var error: NSError?
-        
-        // Check whether it's possible to use biometric authentication
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            
-            // Handle events
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is a security check reason.") { success, authenticationError in
-                
-                if success {
-                    HomeView()
-                } else {
-                    text = "There was a problem!"
-                }
-            }
-        } else {
-            text = "Phone does not have biometrics"
-        }
     }
     
     var body: some View {
@@ -142,13 +120,30 @@ struct LoginView: View {
                     Spacer()
                     
                     Button(action: {
-                        authenticate()
+                        let context = LAContext()
+                        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {context
+                            .evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Authenticate with Face ID") { success, error in
+                                if success {
+                                    // Authentication succeeded
+                                    print("Face ID authentication successful")
+                                    DispatchQueue.main.async {
+                                        // Update the currentShowingView to move to HomeView
+                                        self.currentShowingView = "home"}
+                                } else {
+                                    // Authentication failed
+                                    print("Face ID authentication failed: \(error?.localizedDescription ?? "Unknown error")")
+                                }
+                                
+                            }
+                        } else {
+                            // Face ID not available on this device
+                            print("Face ID not available")
+                        }
                     }) {
                         Image(systemName: "faceid")
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 40, height: 40) // Adjust the size as needed
-                            .foregroundColor(.white)
+                            .frame(width: 50, height: 50)
+                            .foregroundColor(.black)
                     }
                     
                     Spacer()

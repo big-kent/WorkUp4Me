@@ -106,7 +106,7 @@ struct TrainingView: View {
                     }
                 }
                 .pickerStyle(MenuPickerStyle())
-                .padding(10)
+                .padding(5)
                 .foregroundColor(.primary) // Set text color to primary color
                 .accentColor(.black) // Set accent color for buttons
                 
@@ -128,7 +128,7 @@ struct TrainingView: View {
             }
             .edgesIgnoringSafeArea(.bottom)
             .safeAreaInset(edge: .top, content: {
-                Color.clear.frame(height: 70)
+                Color.clear.frame(height: 50)
             })
             .overlay(
                 NavigationBar(title: "Training")
