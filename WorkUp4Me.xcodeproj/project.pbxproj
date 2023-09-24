@@ -184,6 +184,7 @@
 				93F7C8502AB9B2D40073FDD2 /* ViewModels */,
 				93F7C8362AB9B0750073FDD2 /* Views */,
 				93F7C82A2AB9B03E0073FDD2 /* ContentView.swift */,
+				93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */,
 				93F7C82C2AB9B03F0073FDD2 /* Assets.xcassets */,
 				93F7C82E2AB9B03F0073FDD2 /* Preview Content */,
 			);
@@ -207,7 +208,6 @@
 				93F7C8372AB9B0AD0073FDD2 /* CourseView.swift */,
 				93F7C85E2AB9B6FD0073FDD2 /* MapView.swift */,
 				298F96B12ABB55C00051BBC8 /* SettingView.swift */,
-				93F7C8282AB9B03E0073FDD2 /* WorkUp4MeApp.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

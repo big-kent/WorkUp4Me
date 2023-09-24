@@ -23,11 +23,6 @@ class SettingViewModel:ObservableObject{
         fetchCurrentUser()
     }
     func fetchCurrentUser(){
-//
-//        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
-//            self.errorMessage = "Could not find current user uid"
-//            return
-//        }
         guard let uid = Auth.auth().currentUser?.uid else{
             self.errorMessage = "Could not find currentuser uid "
             return
@@ -120,8 +115,9 @@ struct SettingView: View {
     @State private var isAboutUs: Bool = false
     @State private var isUserLoggedIn: Bool = true
     @State private var isDisabled: Bool = true
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     @AppStorage("uid") var userID: String = ""
-//    @StateObject private var userViewModel = UsersViewModel()
+    //    @StateObject private var userViewModel = UsersViewModel()
     let genders = ["","Male", "Female", "Prefer Not To Say"]
     
     @ObservedObject var vm = SettingViewModel()
@@ -146,140 +142,156 @@ struct SettingView: View {
     }
     
     var body: some View {
-        Form {
-            Section {
-                HStack {
-                    Text("Email")
-                    Spacer()
-                    Text("\(vm.user?.email ?? "")")
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Password")
-                    Spacer()
-                    SecureField("**********", text: $password)
-                        .multilineTextAlignment(.trailing)
-                        .disabled(isDisabled)
-                }
-
-            } header: {
-                Text("Account")
-            }
-            
-            Section {
-                HStack {
-                    Text("Full Name")
-                    Spacer()
-                    TextField("\(vm.user?.fullName ?? "")", text: $fullName)
-                        .multilineTextAlignment(.trailing)
-                        .disabled(isDisabled)
-                }
-                HStack {
-                    Text("Display Name")
-                    Spacer()
-                    TextField("\(vm.user?.displayName ?? "")", text: $disName)
-                        .multilineTextAlignment(.trailing)
-                        .disabled(isDisabled)
-                }
-                HStack{
-                    if isDisabled == true{
-                        Text("Date of Birth")
+        ZStack{
+            Form {
+                Section {
+                    HStack {
+                        Text("Email")
                         Spacer()
-                        Text("\(vm.user?.dOB ?? "")")
-                    } else{
-                        DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
+                        Text("\(vm.user?.email ?? "")")
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Password")
+                        Spacer()
+                        SecureField("**********", text: $password)
+                            .multilineTextAlignment(.trailing)
+                            .disabled(isDisabled)
+                    }
+                    
+                } header: {
+                    Text("Account")
+                }
+                
+                Section {
+                    HStack {
+                        Text("Full Name")
+                        Spacer()
+                        TextField("\(vm.user?.fullName ?? "")", text: $fullName)
+                            .multilineTextAlignment(.trailing)
+                            .disabled(isDisabled)
+                    }
+                    HStack {
+                        Text("Display Name")
+                        Spacer()
+                        TextField("\(vm.user?.displayName ?? "")", text: $disName)
+                            .multilineTextAlignment(.trailing)
+                            .disabled(isDisabled)
+                    }
+                    HStack{
+                        if isDisabled == true{
+                            Text("Date of Birth")
+                            Spacer()
+                            Text("\(vm.user?.dOB ?? "")")
+                        } else{
+                            DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
                                 Text("Date of Birth")
                             }
+                        }
                     }
-                }
-                HStack{
-                    if isDisabled == true{
-                        Text("Gender")
+                    HStack{
+                        if isDisabled == true{
+                            Text("Gender")
+                            Spacer()
+                            Text("\(vm.user?.gender ?? "")")
+                        } else{
+                            Picker("Gender", selection: $gender) {
+                                ForEach(genders, id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                        }
+                    }
+                    HStack {
+                        Text("Address")
                         Spacer()
-                        Text("\(vm.user?.gender ?? "")")
-                    } else{
-                        Picker("Gender", selection: $gender) {
-                            ForEach(genders, id: \.self) {
-                                Text($0)
-                            }
-                        }
+                        TextField("\(vm.user?.address ?? "")", text: $address)
+                            .multilineTextAlignment(.trailing)
                     }
-                }
-                HStack {
-                    Text("Address")
-                    Spacer()
-                    TextField("\(vm.user?.address ?? "")", text: $address)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Phone Number")
-                    Spacer()
-                    TextField("\(vm.user?.phoneNo ?? "")", text: $phoneNo)
-                        .multilineTextAlignment(.trailing)
-                }
-            } header: {
-                Text("Profile")
-            }
-            
-            Section {
-                
-                if isDisabled == true{
-                    Text("Edit")
-                        .foregroundColor(.red)
-                        .onTapGesture {
-                            isDisabled.toggle()
-                        }
-                } else{
-                    Text("Save changes")
-                        .foregroundColor(.red)
-                        .onTapGesture {
-                            isDisabled.toggle()
-                            SettingViewModel().updateCurrentUser(fullName: fullName, displayName: disName, dOB: DatetoString(date: birthDate),gender: gender,address: address,phoneNo: phoneNo )
-                            vm.fetchCurrentUser()
-                            vm.changePassword(passWord: password)
-                        }
-                    
-                }
-                Text("About us")
-                    .onTapGesture {
-                        isAboutUs.toggle()
-                    }.alert("About Us", isPresented: $isAboutUs) {
-                        Button("OK", role: .cancel) { }
-                    } message: {
-                        Text("COSC2659 - Assignment 3: WorkUp4ME")
+                    HStack {
+                        Text("Phone Number")
+                        Spacer()
+                        TextField("\(vm.user?.phoneNo ?? "")", text: $phoneNo)
+                            .multilineTextAlignment(.trailing)
                     }
-                    
-                if isUserLoggedIn {
-                    Button(action: {
-                        let firebaseAuth = Auth.auth()
-                        do {
-                            try firebaseAuth.signOut()
-                            withAnimation {
-                                userID = ""
-                                isUserLoggedIn = false
-                            }
-                        } catch let signOutError as NSError {
-                            print("Error signing out: %@", signOutError)
-                        }
-                    }) {
-                        Text("Sign Out")
+                    if isDisabled == true{
+                        Text("Edit")
+                            .bold()
                             .frame(maxWidth: .infinity, alignment: .center)
-                            .foregroundColor(.red)
+                            .foregroundColor(.blue)
+                            .onTapGesture {
+                                isDisabled.toggle()
+                            }
+                    } else{
+                        Text("Save changes")
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .foregroundColor(.blue)
+                            .onTapGesture {
+                                isDisabled.toggle()
+                                SettingViewModel().updateCurrentUser(fullName: fullName, displayName: disName, dOB: DatetoString(date: birthDate),gender: gender,address: address,phoneNo: phoneNo )
+                                vm.fetchCurrentUser()
+                                vm.changePassword(passWord: password)
+                            }
                     }
-                } else {
-                    Text(">.< You not logged yet baka 👉🏼👈🏼" )
+                } header: {
+                    Text("Profile")
                 }
-            } header: {
-                Text("Application")
+                
+                Section {
+                    
+                    Text("About us")
+                        .onTapGesture {
+                            isAboutUs.toggle()
+                        }.alert("About Us", isPresented: $isAboutUs) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text("COSC2659 - Assignment 3: WorkUp4ME")
+                        }
+                    
+                    HStack {
+                        Text("Dark Mode")
+                        Spacer()
+                        Toggle(isOn: $isDarkMode) {
+                            Text("")
+                        }
+                        .toggleStyle(SwitchToggleStyle(tint: .blue)) // Use a switch-style toggle with blue tint
+                    }
+                    
+                    if isUserLoggedIn {
+                        Button(action: {
+                            let firebaseAuth = Auth.auth()
+                            do {
+                                try firebaseAuth.signOut()
+                                withAnimation {
+                                    userID = ""
+                                    isUserLoggedIn = false
+                                }
+                            } catch let signOutError as NSError {
+                                print("Error signing out: %@", signOutError)
+                            }
+                        }) {
+                            Text("Sign Out")
+                                .bold()
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .foregroundColor(.red)
+                        }
+                    } else {
+                        Text(">.< You not logged yet baka 👉🏼👈🏼" )
+                    }
+                } header: {
+                    Text("Application")
+                }
             }
+            .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
+            .safeAreaInset(edge: .top, content: {
+                Color.clear.frame(height: 70)
+            })
+            .overlay(
+                NavigationBar(title: "Training")
+            )
         }
-        .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
-        .safeAreaInset(edge: .top, content: {
-            Color.clear.frame(height: 70)
-        })
-        .overlay(
-            NavigationBar(title: "Training")
-        )
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
 }
     
@@ -288,3 +300,5 @@ struct SettingView_Previews: PreviewProvider {
         SettingView()
     }
 }
+
+

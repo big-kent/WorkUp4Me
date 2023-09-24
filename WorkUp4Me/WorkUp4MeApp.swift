@@ -20,12 +20,13 @@ struct WorkUp4MeApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var userDataManager = UserDataManager()
-    
+    @AppStorage("isDarkMode") var isDarkMode: Bool = false
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(userDataManager)
+                .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }
