@@ -184,15 +184,7 @@ struct SettingView: View {
             }
             
             Section {
-                Text("About us")
-                    .onTapGesture {
-                        isAboutUs.toggle()
-                    }.alert("About Us", isPresented: $isAboutUs) {
-                        Button("OK", role: .cancel) { }
-                    } message: {
-                        Text("Email us")
-                    }
-                    
+                
                 if isDisabled == true{
                     Text("Edit")
                         .foregroundColor(.red)
@@ -207,6 +199,16 @@ struct SettingView: View {
                             SettingViewModel().updateCurrentUser(string: fullName)
                         }
                 }
+                
+                Text("About us")
+                    .onTapGesture {
+                        isAboutUs.toggle()
+                    }.alert("About Us", isPresented: $isAboutUs) {
+                        Button("OK", role: .cancel) { }
+                    } message: {
+                        Text("Email us")
+                    }
+                    
                 if isUserLoggedIn {
                     Button(action: {
                         let firebaseAuth = Auth.auth()
