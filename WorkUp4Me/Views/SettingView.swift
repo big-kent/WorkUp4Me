@@ -22,7 +22,7 @@ class SettingViewModel:ObservableObject{
     init() {
         fetchCurrentUser()
     }
-    private func fetchCurrentUser(){
+    func fetchCurrentUser(){
 //
 //        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
 //            self.errorMessage = "Could not find current user uid"
@@ -60,16 +60,40 @@ class SettingViewModel:ObservableObject{
             self.user = Users(uId: uid, email: email, password: passWord, fullName: fullname, displayName: displayName, dOB: dOB, gender: gender, address: address, phoneNo: phoneNo)
         }
     }
-    public func updateCurrentUser(string: String){
-        
-        guard let uid = Auth.auth().currentUser?.uid else{
-            self.errorMessage = "Could not find currentuser uid "
-            return
-        }
-        
-        db.collection("Users").document(uid).updateData(["fullName": string])
+    
+    func DatetoString(date :Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let date = dateFormatter.string(from: date)
+        return date
     }
     
+    public func updateCurrentUser(fullName: String, displayName: String, dOB: String, gender: String, address: String, phoneNo: String){
+            
+            guard let uid = Auth.auth().currentUser?.uid else{
+                self.errorMessage = "Could not find currentuser uid "
+                return
+            }
+            if fullName != ""{
+                db.collection("Users").document(uid).updateData(["fullName": fullName])
+            }
+            if displayName != ""{
+                db.collection("Users").document(uid).updateData(["displayName": displayName])
+            }
+            if dOB != DatetoString(date: Date()){
+                db.collection("Users").document(uid).updateData(["dOB": dOB])
+            }
+            if gender != ""{
+                db.collection("Users").document(uid).updateData(["Gender": gender])
+            }
+            if address != ""{
+                db.collection("Users").document(uid).updateData(["address": address])
+            }
+            if phoneNo != ""{
+                db.collection("Users").document(uid).updateData(["phoneNo": phoneNo])
+            }
+        }
 }
 
 struct SettingView: View {
@@ -86,7 +110,7 @@ struct SettingView: View {
     @State private var isDisabled: Bool = true
     @AppStorage("uid") var userID: String = ""
 //    @StateObject private var userViewModel = UsersViewModel()
-    let genders = ["Male", "Female", "Prefer Not To Say"]
+    let genders = ["","Male", "Female", "Prefer Not To Say"]
     
     @ObservedObject var vm = SettingViewModel()
     
@@ -145,26 +169,28 @@ struct SettingView: View {
                         .multilineTextAlignment(.trailing)
                         .disabled(isDisabled)
                 }
-//                HStack{
-//                    Text("Date of Birth")
-//                    Spacer()
-//                    Text("\(vm.user?.dOB ?? "")")
-//                        .onTapGesture {
-//                            isDOB.toggle()
-//                        }.alert("About Us", isPresented: $isDOB) {
-//                            Button("OK", role: .cancel) { }
-//                        } message: {
-//                            DatePicker("Date of Birth",selection: $birthDate, in: ...Date(), displayedComponents: .date)
-//                        }
-//                }
-                let birthDate = StringtoDate(string: vm.user?.dOB ?? "")
-                Text("\(birthDate)")
-                DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
+                HStack{
+                    if isDisabled == true{
                         Text("Date of Birth")
+                        Spacer()
+                        Text("\(vm.user?.dOB ?? "")")
+                    } else{
+                        DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
+                                Text("Date of Birth")
+                            }
                     }
-                Picker("Gender", selection: $gender) {
-                    ForEach(genders, id: \.self) {
-                        Text($0)
+                }
+                HStack{
+                    if isDisabled == true{
+                        Text("Gender")
+                        Spacer()
+                        Text("\(vm.user?.gender ?? "")")
+                    } else{
+                        Picker("Gender", selection: $gender) {
+                            ForEach(genders, id: \.self) {
+                                Text($0)
+                            }
+                        }
                     }
                 }
                 HStack {
@@ -196,17 +222,18 @@ struct SettingView: View {
                         .foregroundColor(.red)
                         .onTapGesture {
                             isDisabled.toggle()
-                            SettingViewModel().updateCurrentUser(string: fullName)
+                            SettingViewModel().updateCurrentUser(fullName: fullName, displayName: disName, dOB: DatetoString(date: birthDate),gender: gender,address: address,phoneNo: phoneNo )
+                            vm.fetchCurrentUser()
                         }
+                    
                 }
-                
                 Text("About us")
                     .onTapGesture {
                         isAboutUs.toggle()
                     }.alert("About Us", isPresented: $isAboutUs) {
                         Button("OK", role: .cancel) { }
                     } message: {
-                        Text("Email us")
+                        Text("COSC2659 - Assignment 3: WorkUp4ME")
                     }
                     
                 if isUserLoggedIn {
