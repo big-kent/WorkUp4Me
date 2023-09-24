@@ -82,6 +82,139 @@ struct Exercise: Identifiable {
             imageLink: "Crunches",
             calories: 10,
             category: "Core"
+        ),
+        Exercise(
+            name: "Lunges",
+            description: "Lunges target the quadriceps, hamstrings, and glutes, helping to build leg strength and stability.",
+            imageLink: "Lunges",
+            calories: 15,
+            category: "Legs"
+        ),
+        Exercise(
+            name: "Plank",
+            description: "Planks are an isometric core exercise that strengthens the abdominal muscles and improves posture.",
+            imageLink: "Plank",
+            calories: 8,
+            category: "Core"
+        ),
+        Exercise(
+            name: "Burpees",
+            description: "Burpees are a full-body exercise that combines squats, push-ups, and jumps for an intense workout.",
+            imageLink: "Burpees",
+            calories: 18,
+            category: "Cardio"
+        ),
+        Exercise(
+            name: "Mountain Climbers",
+            description: "Mountain Climbers are a cardio exercise that also engages the core, shoulders, and legs.",
+            imageLink: "Mountain Climbers",
+            calories: 12,
+            category: "Cardio"
+        ),
+        Exercise(
+            name: "Bicycle Crunches",
+            description: "Bicycle Crunches are an advanced core exercise that target the obliques and rectus abdominis.",
+            imageLink: "Bicycle Crunches",
+            calories: 10,
+            category: "Core"
+        ),
+        Exercise(
+            name: "Leg Press",
+            description: "Leg Press is a machine-based exercise that primarily targets the quadriceps and glutes.",
+            imageLink: "Leg Press",
+            calories: 20,
+            category: "Legs"
+        ),
+        Exercise(
+            name: "Push Press",
+            description: "Push Press is a compound exercise that works the shoulders, triceps, and upper body.",
+            imageLink: "Push Press",
+            calories: 22,
+            category: "Shoulders"
+        ),
+        Exercise(
+            name: "Russian Twists",
+            description: "Russian Twists are a core exercise that targets the obliques and helps improve rotational strength.",
+            imageLink: "Russian Twists",
+            calories: 10,
+            category: "Core"
+        ),
+        Exercise(
+            name: "Seated Row",
+            description: "Seated Row is a machine-based exercise that works the upper back and biceps.",
+            imageLink: "Seated Row",
+            calories: 16,
+            category: "Back"
+        ),
+        Exercise(
+            name: "Box Jumps",
+            description: "Box Jumps are a plyometric exercise that improves explosive power and lower body strength.",
+            imageLink: "Box Jumps",
+            calories: 18,
+            category: "Legs"
+        ),
+        Exercise(
+            name: "Push-Up Variations",
+            description: "Push-Up Variations include different hand positions and stances to target various muscle groups.",
+            imageLink: "Push-Up Variations",
+            calories: 20,
+            category: "Chest and Tricep"
+        ),
+        Exercise(
+            name: "Tricep Dips",
+            description: "Tricep Dips primarily target the triceps and are effective for building arm strength.",
+            imageLink: "Tricep Dips",
+            calories: 12,
+            category: "Arms"
+        ),
+        Exercise(
+            name: "Standing Calf Raises",
+            description: "Standing Calf Raises strengthen the calf muscles and improve lower leg stability.",
+            imageLink: "Standing Calf Raises",
+            calories: 10,
+            category: "Legs"
+        ),
+        Exercise(
+            name: "Hanging Leg Raises",
+            description: "Hanging Leg Raises are an advanced core exercise that targets the lower abs and hip flexors.",
+            imageLink: "Hanging Leg Raises",
+            calories: 12,
+            category: "Core"
+        ),
+        Exercise(
+            name: "Lat Pulldowns",
+            description: "Lat Pulldowns are a machine-based exercise that work the upper back and lats.",
+            imageLink: "Lat Pulldowns",
+            calories: 16,
+            category: "Back"
+        ),
+        Exercise(
+            name: "Side Plank",
+            description: "Side Plank is a core exercise that targets the obliques and helps improve lateral stability.",
+            imageLink: "Side Plank",
+            calories: 8,
+            category: "Core"
+        ),
+        Exercise(
+            name: "Leg Curls",
+            description: "Leg Curls target the hamstrings and are essential for balanced leg development.",
+            imageLink: "Leg Curls",
+            calories: 14,
+            category: "Legs"
+        ),
+        Exercise(
+            name: "Incline Bench Press",
+            description: "Incline Bench Press is a variation of the bench press that targets the upper chest muscles.",
+            imageLink: "Incline Bench Press",
+            calories: 25,
+            category: "Chest"
+        ),
+        Exercise(
+            name: "Barbell Rows",
+            description: "Barbell Rows are a compound exercise that strengthen the back and biceps.",
+            imageLink: "Barbell Rows",
+            calories: 22,
+            category: "Back"
         )
     ]
 
