@@ -291,7 +291,7 @@ struct SettingView: View {
                 Color.clear.frame(height: 70)
             })
             .overlay(
-                NavigationBar(title: "Setting")
+                NavigationBarSetting(title: "Setting", image: "profile")
             )
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)

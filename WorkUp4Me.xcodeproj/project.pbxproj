@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		25ED45872ABD9AEE00FCDA6A /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ED45862ABD9AEE00FCDA6A /* Users.swift */; };
 		25ED45892ABD9F2E00FCDA6A /* NewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ED45882ABD9F2E00FCDA6A /* NewRow.swift */; };
+		25ED458C2AC08D9300FCDA6A /* NavigationBarSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ED458B2AC08D9300FCDA6A /* NavigationBarSetting.swift */; };
 		293CB2B62ABEFDC200FFF66C /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293CB2B52ABEFDC200FFF66C /* Course.swift */; };
 		293CB2BA2ABF0A9E00FFF66C /* VideoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293CB2B92ABF0A9E00FFF66C /* VideoList.swift */; };
 		293CB2BC2ABF23A800FFF66C /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293CB2BB2ABF23A800FFF66C /* CourseDetailView.swift */; };
@@ -45,6 +46,7 @@
 /* Begin PBXFileReference section */
 		25ED45862ABD9AEE00FCDA6A /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		25ED45882ABD9F2E00FCDA6A /* NewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRow.swift; sourceTree = "<group>"; };
+		25ED458B2AC08D9300FCDA6A /* NavigationBarSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarSetting.swift; sourceTree = "<group>"; };
 		293CB2B52ABEFDC200FFF66C /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		293CB2B92ABF0A9E00FFF66C /* VideoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoList.swift; sourceTree = "<group>"; };
 		293CB2BB2ABF23A800FFF66C /* CourseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailView.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				939394172ABD8F7C00819F26 /* UserDataManager.swift */,
+				25ED458B2AC08D9300FCDA6A /* NavigationBarSetting.swift */,
 			);
 			path = SettingRelated;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				25ED45872ABD9AEE00FCDA6A /* Users.swift in Sources */,
 				93F7C84F2AB9B2BF0073FDD2 /* SignUpView.swift in Sources */,
 				293CB2BA2ABF0A9E00FFF66C /* VideoList.swift in Sources */,
+				25ED458C2AC08D9300FCDA6A /* NavigationBarSetting.swift in Sources */,
 				939394182ABD8F7C00819F26 /* UserDataManager.swift in Sources */,
 				298F96BE2ABB5DA70051BBC8 /* LocationsDataService.swift in Sources */,
 				93F7C84D2AB9B2A00073FDD2 /* LoginView.swift in Sources */,
@@ -460,7 +464,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WorkUp4Me/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use this to unlock iphone";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow library access";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -489,7 +495,9 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WorkUp4Me/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use this to unlock iphone";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Please allow library access";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
