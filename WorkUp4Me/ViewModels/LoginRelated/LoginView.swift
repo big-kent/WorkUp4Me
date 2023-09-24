@@ -12,6 +12,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import LocalAuthentication
 
 struct LoginView: View {
     
@@ -21,6 +22,10 @@ struct LoginView: View {
     //Define email and password as an attribute in scope
     @State private var email: String = ""
     @State private var password: String = ""
+    
+    //For Face ID
+    @State private var unlocked = false
+    @State private var text = "LOCKED"
     
     // Track user login state
     @State private var isUserLoggedIn: Bool = true
@@ -34,6 +39,27 @@ struct LoginView: View {
         // 1 special char
         let passwordRegex = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])(?=.*[A-Z]).{6,}$")
         return passwordRegex.evaluate(with: password)
+    }
+    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        // Check whether it's possible to use biometric authentication
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            
+            // Handle events
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "This is a security check reason.") { success, authenticationError in
+                
+                if success {
+                    text = "UNLOCKED"
+                } else {
+                    text = "There was a problem!"
+                }
+            }
+        } else {
+            text = "Phone does not have biometrics"
+        }
     }
     
     var body: some View {
@@ -114,35 +140,44 @@ struct LoginView: View {
                     }
                     
                     Spacer()
+                    
+                    Button(action: {
+                        authenticate()
+                    }) {
+                        Image(systemName: "faceid")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40) // Adjust the size as needed
+                            .foregroundColor(.white)
+                    }
+                    
                     Spacer()
                     
-                    ZStack{
-                        Button {
-                            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-                                if let error = error {
-                                    print(error)
-                                    return
-                                }
-                                if let authResult = authResult {
-                                    print(authResult.user.uid)
-                                    withAnimation {
-                                        userID = authResult.user.uid
-                                    }
+                    Button {
+                        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                            if let error = error {
+                                print(error)
+                                return
+                            }
+                            if let authResult = authResult {
+                                print(authResult.user.uid)
+                                withAnimation {
+                                    userID = authResult.user.uid
                                 }
                             }
-                        } label: {
-                            Text("Sign In")
-                                .foregroundColor(.white)
-                                .font(.title3)
-                                .bold()
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color.black)
-                                )
-                                .padding(.horizontal)
                         }
+                    } label: {
+                        Text("Sign In")
+                            .foregroundColor(.white)
+                            .font(.title3)
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.black)
+                            )
+                            .padding(.horizontal)
                     }
                 }
             }

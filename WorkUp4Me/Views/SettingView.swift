@@ -279,16 +279,19 @@ struct SettingView: View {
                     } else {
                         Text(">.< You not logged yet baka 👉🏼👈🏼" )
                     }
+                    
+                
                 } header: {
                     Text("Application")
                 }
+                
             }
             .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
             .safeAreaInset(edge: .top, content: {
                 Color.clear.frame(height: 70)
             })
             .overlay(
-                NavigationBar(title: "Training")
+                NavigationBar(title: "Setting")
             )
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)

@@ -11,6 +11,7 @@
 */
 
 import SwiftUI
+import LocalAuthentication
 
 struct ContentView: View {
     
