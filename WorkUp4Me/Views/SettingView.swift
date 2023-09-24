@@ -60,18 +60,27 @@ class SettingViewModel:ObservableObject{
             self.user = Users(uId: uid, email: email, password: passWord, fullName: fullname, displayName: displayName, dOB: dOB, gender: gender, address: address, phoneNo: phoneNo)
         }
     }
+    public func updateCurrentUser(string: String){
+        
+        guard let uid = Auth.auth().currentUser?.uid else{
+            self.errorMessage = "Could not find currentuser uid "
+            return
+        }
+        
+        db.collection("Users").document(uid).updateData(["fullName": string])
+    }
     
 }
 
 struct SettingView: View {
     @State private var fullName: String = ""
     @State private var password: String = ""
-    @State private var email: String = ""
     @State private var phoneNo: String = ""
     @State private var address: String = ""
     @State private var disName: String = ""
     @State private var birthDate: Date = Date()
     @State private var gender: String = ""
+    @State private var isDOB: Bool = false
     @State private var isAboutUs: Bool = false
     @State private var isUserLoggedIn: Bool = true
     @State private var isDisabled: Bool = true
@@ -81,15 +90,22 @@ struct SettingView: View {
     
     @ObservedObject var vm = SettingViewModel()
     
+    func DatetoString(date :Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let date = dateFormatter.string(from: date)
+        return date
+    }
+    
     func StringtoDate(string :String) -> Date{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        guard let date = dateFormatter.date(from: string) else { return Date.now }
+        guard let date = dateFormatter.date(from: string) else { return Date() }
         return date
     }
     init(){
-        birthDate = StringtoDate(string: vm.user?.dOB ?? "")
         gender = vm.user?.gender ?? ""
     }
     
@@ -99,15 +115,15 @@ struct SettingView: View {
                 HStack {
                     Text("Email")
                     Spacer()
-                    TextField("\(vm.user?.email ?? "")", text: $email)
+                    Text("\(vm.user?.email ?? "")")
                         .multilineTextAlignment(.trailing)
-                        .disabled(isDisabled)
                 }
                 HStack {
                     Text("Password")
                     Spacer()
                     SecureField("\(vm.user?.password ?? "")", text: $password)
                         .multilineTextAlignment(.trailing)
+                        .disabled(isDisabled)
                 }
 
             } header: {
@@ -116,20 +132,36 @@ struct SettingView: View {
             
             Section {
                 HStack {
-                    Text("\(vm.user?.fullName ?? "" )")
+                    Text("Full Name")
                     Spacer()
                     TextField("\(vm.user?.fullName ?? "")", text: $fullName)
                         .multilineTextAlignment(.trailing)
+                        .disabled(isDisabled)
                 }
                 HStack {
                     Text("Display Name")
                     Spacer()
                     TextField("\(vm.user?.displayName ?? "")", text: $disName)
                         .multilineTextAlignment(.trailing)
+                        .disabled(isDisabled)
                 }
+//                HStack{
+//                    Text("Date of Birth")
+//                    Spacer()
+//                    Text("\(vm.user?.dOB ?? "")")
+//                        .onTapGesture {
+//                            isDOB.toggle()
+//                        }.alert("About Us", isPresented: $isDOB) {
+//                            Button("OK", role: .cancel) { }
+//                        } message: {
+//                            DatePicker("Date of Birth",selection: $birthDate, in: ...Date(), displayedComponents: .date)
+//                        }
+//                }
+                let birthDate = StringtoDate(string: vm.user?.dOB ?? "")
+                Text("\(birthDate)")
                 DatePicker(selection: $birthDate, in: ...Date(), displayedComponents: .date) {
-                    Text("Date of Birth")
-                }
+                        Text("Date of Birth")
+                    }
                 Picker("Gender", selection: $gender) {
                     ForEach(genders, id: \.self) {
                         Text($0)
@@ -172,6 +204,7 @@ struct SettingView: View {
                         .foregroundColor(.red)
                         .onTapGesture {
                             isDisabled.toggle()
+                            SettingViewModel().updateCurrentUser(string: fullName)
                         }
                 }
                 if isUserLoggedIn {
