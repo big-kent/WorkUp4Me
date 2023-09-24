@@ -142,6 +142,21 @@ struct TrainingView: View {
 }
 
 struct CardView: View {
+    
+    var calculatedCalories: Int {
+        if let repsValue = Int(reps) {
+            return repsValue * exercise.calories
+        } else {
+            return 0
+        }
+    }
+    
+    func handleRepsSubmission() {
+        // Handle text field submission here, if needed
+        // For example, you can save the value or perform an action
+        print("Reps submitted: \(reps)")
+    }
+    
     var exercise: Exercise
     @State private var reps: String = ""
     
@@ -157,7 +172,7 @@ struct CardView: View {
                 Text(exercise.name)
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundStyle(.linearGradient(colors: [.primary, .primary.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .foregroundStyle(.linearGradient(colors: [.black, .primary.opacity(0.5)], startPoint: .topLeading, endPoint: .bottomTrailing))
                     .lineLimit(1)
                 
                 Text(exercise.description)
@@ -165,10 +180,12 @@ struct CardView: View {
                     .multilineTextAlignment(.leading)
                     .lineLimit(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.black)
                 
                 HStack {
                     TextField("Reps", text: $reps)
+                        .border(Color.black, width: 1)
+                        .foregroundColor(Color.black)
                         .cornerRadius(10)
                         .frame(width: 80)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -183,7 +200,7 @@ struct CardView: View {
                     Text("Calories: \(calculatedCalories)")
                         .font(.footnote)
                         .fontWeight(.semibold)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.black)
                 }
             }
             .padding( 20)
@@ -192,27 +209,13 @@ struct CardView: View {
             RoundedRectangle(cornerRadius: 30)
                 .fill(
                     LinearGradient(
-                        gradient: Gradient(colors: [.white, Color(.sRGB, white: 0.98, opacity: 1.0)]), // Customize gradient colors here
+                        gradient: Gradient(colors: [.white]), // Customize gradient colors here
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
                 )
                 .shadow(color: Color(.black).opacity(0.3), radius: 5, x: 0, y: 8)
         )
-    }
-    
-    var calculatedCalories: Int {
-        if let repsValue = Int(reps) {
-            return repsValue * exercise.calories
-        } else {
-            return 0
-        }
-    }
-    
-    func handleRepsSubmission() {
-        // Handle text field submission here, if needed
-        // For example, you can save the value or perform an action
-        print("Reps submitted: \(reps)")
     }
 }
 
