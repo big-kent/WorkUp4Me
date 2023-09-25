@@ -14,13 +14,16 @@ struct CourseDetailView: View {
     
     var body: some View {
         ZStack{
-            LinearGradient(colors: [Color("Mint"), Color("Purple")], startPoint: startAnimation ? .topLeading : .bottomLeading, endPoint: startAnimation ? .bottomTrailing : .topTrailing)
-                .edgesIgnoringSafeArea(.all)
-                .onAppear {
-                    withAnimation(.linear(duration: 5.0).repeatForever()) {
-                        startAnimation.toggle()
+            ZStack{
+                LinearGradient(colors: [Color("Mint"), Color("Purple")], startPoint: startAnimation ? .topLeading : .bottomLeading, endPoint: startAnimation ? .bottomTrailing : .topTrailing)
+                    .edgesIgnoringSafeArea(.all)
+                    .onAppear {
+                        withAnimation(.linear(duration: 5.0).repeatForever()) {
+                            startAnimation.toggle()
+                        }
                     }
-                }
+            }
+            
             VStack(spacing: 20){
                 Spacer()
                 Image(video.imageName)
