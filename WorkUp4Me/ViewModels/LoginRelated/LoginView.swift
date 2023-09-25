@@ -16,26 +16,27 @@ import LocalAuthentication
 
 struct LoginView: View {
     
-    @Binding var currentShowingView: String
-    @AppStorage("uid") var userID: String = ""
+    @Binding var currentShowingView: String // Keeps track of the current view being shown
+    @AppStorage("uid") var userID: String = "" // Stores the user's ID using AppStorage
     
-    //Define email and password as an attribute in scope
+    // Define email and password as attributes in scope
     @State private var email: String = ""
     @State private var password: String = ""
     
-    //For Face ID
+    // For Face ID authentication
     @State private var isFaceIDAvailable = false
     
     // Track user login state
     @State private var isUserLoggedIn: Bool = true
     
-    //For animation background
+    // For animation background
     @State private var startAnimation: Bool = false
     
+    // Function to validate the password based on certain criteria
     private func isValidPassword(_ password: String) -> Bool {
-        // minimum 6 characters long
-        // 1 uppercase character
-        // 1 special char
+        // Password should be at least 6 characters long
+        // Should contain at least 1 uppercase character
+        // Should contain at least 1 special character
         let passwordRegex = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])(?=.*[A-Z]).{6,}$")
         return passwordRegex.evaluate(with: password)
     }
@@ -43,7 +44,8 @@ struct LoginView: View {
     var body: some View {
         NavigationView{
             ZStack {
-                LinearGradient(colors: [Color("Mint"),Color("Purple")],startPoint: startAnimation ? .topLeading : .bottomLeading,endPoint: startAnimation ? .bottomTrailing: .topTrailing)
+                // Gradient background with animation
+                LinearGradient(colors: [Color("Mint"), Color("Purple")], startPoint: startAnimation ? .topLeading : .bottomLeading, endPoint: startAnimation ? .bottomTrailing : .topTrailing)
                     .edgesIgnoringSafeArea(.all)
                     .onAppear {
                         withAnimation(.linear(duration: 5.0).repeatForever()) {
@@ -121,20 +123,31 @@ struct LoginView: View {
                     
                     Button(action: {
                         let context = LAContext()
-                        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {context
-                            .evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Authenticate with Face ID") { success, error in
+                        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+                            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Authenticate with Face ID") { success, error in
                                 if success {
-                                    // Authentication succeeded
+                                    // Face ID authentication succeeded
                                     print("Face ID authentication successful")
                                     DispatchQueue.main.async {
-                                        // Update the currentShowingView to move to HomeView
-                                        Auth.auth().signIn(withEmail: "Kent3@gmail.com", password: "P@ssw0rd")
-                                        self.currentShowingView = "home"}
+                                        let email = "Kent3@gmail.com"
+                                        let password = "P@ssw0rd"
+                                        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                                            if let error = error {
+                                                print(error)
+                                                return
+                                            }
+                                            if let authResult = authResult {
+                                                print(authResult.user.uid)
+                                                withAnimation {
+                                                    userID = authResult.user.uid
+                                                }
+                                            }
+                                        }
+                                    }
                                 } else {
-                                    // Authentication failed
+                                    // Face ID authentication failed
                                     print("Face ID authentication failed: \(error?.localizedDescription ?? "Unknown error")")
                                 }
-                                
                             }
                         } else {
                             // Face ID not available on this device
@@ -180,6 +193,7 @@ struct LoginView: View {
         }
     }
 }
+
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView(currentShowingView: .constant("login"))

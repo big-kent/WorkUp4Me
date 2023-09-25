@@ -16,17 +16,16 @@ import Firebase
 
 struct SignUpView: View {
     
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @AppStorage("uid") var userID: String = ""
-    @Binding var currentShowingView: String
-    @State private var startAnimation: Bool = false // for animation background
+    @State private var email: String = "" // Stores the user's email
+    @State private var password: String = "" // Stores the user's password
+    @AppStorage("uid") var userID: String = "" // Stores the user's ID using AppStorage
+    @Binding var currentShowingView: String // Tracks the current view being shown
+    @State private var startAnimation: Bool = false // For animating the background
     
+    // Function to validate the password based on certain criteria
     private func isValidPassword(_ password: String) -> Bool {
-        // minimum 6 characters long
-        // 1 uppercase character
-        // 1 special char
-        // 1 number
+        // Password should be at least 6 characters long
+        // Should contain at least 1 uppercase character, 1 special character, and 1 number
         let passwordRegex = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])(?=.*[A-Z])(?=.*\\d).{6,}$")
         return passwordRegex.evaluate(with: password)
     }
@@ -34,11 +33,14 @@ struct SignUpView: View {
     var body: some View {
         ZStack {
             
+            // Gradient background with animation
             LinearGradient(colors: [Color("Mint"),Color("Purple")],startPoint: startAnimation ? .topLeading : .bottomLeading,endPoint: startAnimation ? .bottomTrailing: .topTrailing)
                 .edgesIgnoringSafeArea(.all)
-                .onAppear
-            {withAnimation(.linear(duration: 5.0).repeatForever()) {startAnimation.toggle()}
-            }
+                .onAppear {
+                    withAnimation(.linear(duration: 5.0).repeatForever()) {
+                        startAnimation.toggle()
+                    }
+                }
             
             VStack {
                 HStack {
@@ -173,4 +175,3 @@ struct SignUpView_Previews: PreviewProvider {
         SignUpView(currentShowingView: .constant("signup"))
     }
 }
-

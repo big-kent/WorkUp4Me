@@ -15,29 +15,29 @@ import SwiftUI
 import FirebaseAuth
 
 struct AuthView: View {
-    @State private var currentViewShowing: String = "login" // login or signup
-    @State private var startAnimation: Bool = false // for animation background
+    @State private var currentViewShowing: String = "login" // Indicates whether to show the login or signup view
+    @State private var startAnimation: Bool = false // Used for animating the background
     
     var body: some View {
         if(currentViewShowing == "login") {
-            LoginView(currentShowingView: $currentViewShowing)
-                .preferredColorScheme(.light)
+            LoginView(currentShowingView: $currentViewShowing) // Display the login view
+                .preferredColorScheme(.light) // Use the light color scheme
         } else {
-            SignUpView(currentShowingView: $currentViewShowing)
-                .preferredColorScheme(.dark)
-                .transition(.move(edge: .bottom))
+            SignUpView(currentShowingView: $currentViewShowing) // Display the signup view
+                .preferredColorScheme(.dark) // Use the dark color scheme
+                .transition(.move(edge: .bottom)) // Add a transition effect when switching to this view
         }
         
         if currentViewShowing == "login" {
-            LoginView(currentShowingView: $currentViewShowing)
+            LoginView(currentShowingView: $currentViewShowing) // Display the login view again
         } else if currentViewShowing == "home" {
-            HomeView()
+            HomeView() // Display the home view if the currentViewShowing is "home"
         }
     }
 }
+
 struct AuthView_Previews: PreviewProvider {
     static var previews: some View {
-        AuthView()
+        AuthView() // Preview the AuthView
     }
 }
-
