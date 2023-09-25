@@ -217,9 +217,10 @@ struct SettingView: View {
                 Spacer()
                 
             }
+            .padding(.bottom, 80)
             .edgesIgnoringSafeArea(.bottom) // Ignore safe area for full-width background
             .safeAreaInset(edge: .top, content: {
-                Color.clear.frame(height: 50)
+                Color.clear.frame(height: 70)
             })
             .overlay(
                 NavigationBar(title: "Setting")

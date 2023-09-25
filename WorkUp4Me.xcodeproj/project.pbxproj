@@ -44,6 +44,7 @@
 		93F7C85D2AB9B6380073FDD2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 93F7C85C2AB9B6380073FDD2 /* FirebaseFirestore */; };
 		93F7C85F2AB9B6FD0073FDD2 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F7C85E2AB9B6FD0073FDD2 /* MapView.swift */; };
 		93F7C8612AB9B7910073FDD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */; };
+		AC7439B52AC1576900020492 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7439B42AC1576900020492 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		93F7C8532AB9B5690073FDD2 /* Row.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Row.swift; sourceTree = "<group>"; };
 		93F7C85E2AB9B6FD0073FDD2 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		93F7C8602AB9B7910073FDD2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AC7439B42AC1576900020492 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				93F7C8532AB9B5690073FDD2 /* Row.swift */,
 				93F7C84A2AB9B2700073FDD2 /* NavigationBar.swift */,
 				25ED45882ABD9F2E00FCDA6A /* NewRow.swift */,
+				AC7439B42AC1576900020492 /* CardView.swift */,
 			);
 			path = TrainingRelated;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				93F7C83A2AB9B0CC0073FDD2 /* HomeView.swift in Sources */,
 				93F7C83C2AB9B1050073FDD2 /* TrainingView.swift in Sources */,
 				939FF5CA2ABC586C00505ADA /* LocationDetailView.swift in Sources */,
+				AC7439B52AC1576900020492 /* CardView.swift in Sources */,
 				93F7C8542AB9B5690073FDD2 /* Exercise.swift in Sources */,
 				293CB2B62ABEFDC200FFF66C /* Course.swift in Sources */,
 				93F7C85F2AB9B6FD0073FDD2 /* MapView.swift in Sources */,
