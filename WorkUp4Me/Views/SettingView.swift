@@ -29,6 +29,7 @@ struct SettingView: View {
     @State private var isUserLoggedIn: Bool = true
     @State private var isDisabled: Bool = true
     @State private var isChangeProfile = false
+    @State private var isFaceID: Bool = false
     @State private var image = UIImage()
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
     @AppStorage("uid") var userID: String = ""
@@ -178,7 +179,13 @@ struct SettingView: View {
                         } message: {
                             Text("COSC2659 - Assignment 3: WorkUp4ME")
                         }
-                    
+                    HStack{
+                        Text("FaceID")
+                        Spacer()
+                        Toggle(isOn: $isFaceID){
+                            Text("")
+                        }
+                    }
                     HStack {
                         Text("Dark Mode")
                         Spacer()

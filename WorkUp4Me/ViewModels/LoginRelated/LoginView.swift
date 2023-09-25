@@ -128,6 +128,7 @@ struct LoginView: View {
                                     print("Face ID authentication successful")
                                     DispatchQueue.main.async {
                                         // Update the currentShowingView to move to HomeView
+                                        Auth.auth().signIn(withEmail: "Kent3@gmail.com", password: "P@ssw0rd")
                                         self.currentShowingView = "home"}
                                 } else {
                                     // Authentication failed
