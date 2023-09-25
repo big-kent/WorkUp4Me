@@ -18,5 +18,6 @@ struct Users: Codable{
     var gender: String
     var address: String
     var phoneNo: String
+    var profileImageURL: String
     
 }

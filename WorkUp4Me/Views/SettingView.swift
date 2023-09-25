@@ -12,6 +12,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 class SettingViewModel:ObservableObject{
     
@@ -49,11 +50,42 @@ class SettingViewModel:ObservableObject{
             let gender = data["Gender"] as? String ?? ""
             let address = data["address"] as? String ?? ""
             let phoneNo = data["phoneNo"] as? String ?? ""
+            let profileImageURL = data["profileImageURL"] as? String ?? ""
+            
             
             print(displayName)
             
-            self.user = Users(uId: uid, email: email, password: passWord, fullName: fullname, displayName: displayName, dOB: dOB, gender: gender, address: address, phoneNo: phoneNo)
+            self.user = Users(uId: uid, email: email, password: passWord, fullName: fullname, displayName: displayName, dOB: dOB, gender: gender, address: address, phoneNo: phoneNo, profileImageURL: profileImageURL)
         }
+    }
+    
+    public func saveImageUrl(profileImage: UIImage){
+        guard let uid = Auth.auth().currentUser?.uid else{
+            self.errorMessage = "Could not find currentuser uid "
+            return
+        }
+        let ref = Storage.storage().reference(withPath: uid)
+        
+        guard let imageData = profileImage.jpegData(compressionQuality: 0.5) else {
+            self.errorMessage = "Could not compress"
+            return
+        }
+        
+        ref.putData(imageData,metadata: nil) { metadata, err in
+            if let err = err {
+                self.errorMessage = "Failed to upload \(err)"
+                return
+            }
+        }
+        
+        ref.downloadURL { url, err in
+            if let err = err {
+                self.errorMessage = "Failed to download url \(err)"
+                return
+            }
+            print(url?.absoluteString ?? "")
+        }
+       
     }
     
     func DatetoString(date :Date) -> String{
@@ -115,6 +147,8 @@ struct SettingView: View {
     @State private var isAboutUs: Bool = false
     @State private var isUserLoggedIn: Bool = true
     @State private var isDisabled: Bool = true
+    @State private var isChangeProfile = false
+    @State private var image = UIImage()
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
     @AppStorage("uid") var userID: String = ""
     //    @StateObject private var userViewModel = UsersViewModel()
@@ -144,6 +178,22 @@ struct SettingView: View {
     var body: some View {
         ZStack{
             Form {
+                HStack{
+                    Image(uiImage: self.image)
+                        .resizable()
+                        .cornerRadius(22)
+                        .padding(.all, 4)
+                        .frame(width: 100, height: 100)
+                        .background(Color.black.opacity(0.2))
+                        .aspectRatio(contentMode: .fill)
+                        .clipShape(Circle())
+                        .onTapGesture {
+                            isChangeProfile.toggle()
+                        }
+                    Text("Welcome \(vm.user?.displayName ?? "")")
+                        .font(.title3)
+                        .bold()
+                }
                 Section {
                     HStack {
                         Text("Email")
@@ -232,6 +282,8 @@ struct SettingView: View {
                                 SettingViewModel().updateCurrentUser(fullName: fullName, displayName: disName, dOB: DatetoString(date: birthDate),gender: gender,address: address,phoneNo: phoneNo )
                                 vm.fetchCurrentUser()
                                 vm.changePassword(passWord: password)
+                                vm.saveImageUrl(profileImage: image)
+
                             }
                     }
                 } header: {
@@ -291,10 +343,13 @@ struct SettingView: View {
                 Color.clear.frame(height: 50)
             })
             .overlay(
-                NavigationBarSetting(title: "Setting", image: "profile")
+                NavigationBar(title: "Setting")
             )
         }
         .preferredColorScheme(isDarkMode ? .dark : .light)
+        .fullScreenCover(isPresented: $isChangeProfile) {
+            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
+        }
     }
 }
     
