@@ -13,11 +13,12 @@ struct LocationPreview: View {
     let location: Location
     
     var body: some View {
+        // Main layout structure for displaying location preview
         HStack(alignment: .bottom, spacing: 0) {
             VStack(alignment: .leading, spacing: 16) {
                 imageSection
                 titleSection
-        }
+            }
             VStack(spacing: 8) {
                 learnMoreButton
                 nextButton
@@ -32,6 +33,7 @@ struct LocationPreview: View {
         .cornerRadius(10)
     }
 }
+
 struct LocationPreview_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
@@ -46,6 +48,7 @@ struct LocationPreview_Previews: PreviewProvider {
 
 extension LocationPreview {
     
+    // View for displaying the location image
     private var imageSection: some View {
         ZStack {
             if let imageName = location.imageNames.first {
@@ -59,9 +62,9 @@ extension LocationPreview {
         .padding(6)
         .background(Color.white)
         .cornerRadius(10)
-
     }
     
+    // View for displaying the location title and city name
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(location.name)
@@ -74,6 +77,7 @@ extension LocationPreview {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
+    // Button to learn more about the location
     private var learnMoreButton: some View {
         Button {
             vm.sheetLocation = location
@@ -85,6 +89,7 @@ extension LocationPreview {
         .buttonStyle(.borderedProminent)
     }
     
+    // Button to navigate to the next location
     private var nextButton: some View {
         Button {
             vm.nextButtonPressed()
