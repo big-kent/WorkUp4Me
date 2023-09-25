@@ -214,7 +214,6 @@ struct SettingView: View {
                 } header: {
                     Text("Application")
                 }
-                Spacer()
                 
             }
             .padding(.bottom, 80)
